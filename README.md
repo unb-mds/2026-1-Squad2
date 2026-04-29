@@ -8,6 +8,6 @@ Figma: https://www.figma.com/board/JerWZI6mxVFXDsDmY6ZMap/Template-MDS--c%C3%B3p
 - Alice Moura
 - Alice Rodrigues
 - Renan Santos
-- Luana ...
+- Luana Barbosa
 - Eduardo ...
 - Rafael Schetinger
