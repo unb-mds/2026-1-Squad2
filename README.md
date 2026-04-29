@@ -2,3 +2,12 @@
 
 Tema: Monitoramento Legislativo de Feminicidio \
 Figma: https://www.figma.com/board/JerWZI6mxVFXDsDmY6ZMap/Template-MDS--c%C3%B3pia-?node-id=0-1&t=qxXIXtMIxSv9x0T2-1 
+
+## participantes
+
+- Alice Moura
+- Alice Rodrigues
+- Renan Santos
+- Luana ...
+- Eduardo ...
+- Rafael Schetinger
