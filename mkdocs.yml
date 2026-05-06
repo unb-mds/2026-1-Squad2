@@ -9,7 +9,6 @@ theme:
 
 nav:
   - Home: index.md
-  - Arquitetura:
   - Requisitos:
     - Visão geral: Requisitos/Visão de produto.md
   - ATAS Reunião:
