@@ -27,7 +27,7 @@ Plataforma para busca e acompanhamento de projetos de lei sobre feminicídio e v
 
 ## Documentação
 
-- [Git Pages](https://unb-mds.github.io/2026-1-Squad2/)
+- [Git Pages](https://unb-mds.github.io/2026-1-Mapa_L.I.L.A.S/)
 - [Figma](https://www.figma.com/board/JerWZI6mxVFXDsDmY6ZMap/Template-MDS--c%C3%B3pia-?node-id=0-1&p=f&t=C2MuRLnn6exwREqu-0)
 
 
