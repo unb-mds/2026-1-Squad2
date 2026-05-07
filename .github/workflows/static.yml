@@ -1,5 +1,5 @@
 # Simple workflow for deploying MkDocs to GitHub Pages
-name: Deploy MkDocs content to Pages
+name: Deploy MkDocs
 
 on:
   push:
