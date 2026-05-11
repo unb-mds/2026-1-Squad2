@@ -1,0 +1,85 @@
+name: Medir Produtividade da Equipe
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 8 * * 1'  # toda segunda-feira às 8h
+
+jobs:
+  medir-produtividade:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # 1. Clona o repositório (API Git / clone)
+      - name: Checkout com histórico completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # IMPORTANTE: traz TODO o histórico de commits
+
+      # 2. Configura git
+      - name: Configurar Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # 3. Coleta dados via git log (commits/tempo + diff)
+      - name: Gerar relatório de commits
+        run: |
+          chmod +x scripts/gerar_relatorio.sh
+          bash scripts/gerar_relatorio.sh > /tmp/relatorio.html
+
+      # 4. Busca issues via GitHub API (issues/tempo)
+      - name: Buscar issues abertas por membro
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "<h2>Issues atribuídas por membro</h2><table>" >> /tmp/relatorio.html
+          echo "<tr><th>Membro</th><th>Issues abertas</th><th>Issues fechadas (30d)</th></tr>" >> /tmp/relatorio.html
+          
+          # Busca assignees via API
+          curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/issues?state=all&per_page=100" \
+          | python3 -c "
+import sys, json
+from collections import defaultdict
+issues = json.load(sys.stdin)
+contagem = defaultdict(lambda: {'abertas': 0, 'fechadas': 0})
+for i in issues:
+    if i.get('assignee'):
+        user = i['assignee']['login']
+        if i['state'] == 'open':
+            contagem[user]['abertas'] += 1
+        else:
+            contagem[user]['fechadas'] += 1
+for user, dados in contagem.items():
+    print(f'<tr><td>{user}</td><td>{dados[\"abertas\"]}</td><td>{dados[\"fechadas\"]}</td></tr>')
+" >> /tmp/relatorio.html
+          
+          echo "</table>" >> /tmp/relatorio.html
+
+      # 5. Injeta o relatório no index.html
+      - name: Atualizar index.html com os dados
+        run: |
+          DADOS=$(cat /tmp/relatorio.html)
+          # Substitui o placeholder no index.html
+          python3 -c "
+import sys
+with open('index.html', 'r') as f:
+    content = f.read()
+with open('/tmp/relatorio.html', 'r') as f:
+    dados = f.read()
+novo = content.replace('<!-- DADOS_GERADOS -->', dados)
+with open('index.html', 'w') as f:
+    f.write(novo)
+print('index.html atualizado com sucesso')
+"
+
+      # 6. Commit e push do relatório atualizado
+      - name: Publicar relatório atualizado
+        run: |
+          git add index.html
+          git diff --staged --quiet || git commit -m "chore: atualiza relatório de produtividade [skip ci]"
+          git push
