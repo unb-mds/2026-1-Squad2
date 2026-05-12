@@ -1,853 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Métricas SCRUM — Mapa L.I.L.A.S</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-        <meta name="description" content="Documentação do projeto, com os nossos estudos, conteúdos de Sprints, e tudo mais que for relevante para o projeto.">
-      
-      
-      
-      
-      
-        <link rel="next" href="Requisitos/Vis%C3%A3o%20de%20produto/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
-    
-    
-      
-        <title>Mapa L.I.L.A.S</title>
-      
-    
-    
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
-      
-        
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
-      
-      
+    :root {
+      --bg:        #0f1117;
+      --surface:   #1a1d27;
+      --border:    #2a2d3a;
+      --text:      #e2e4ef;
+      --muted:     #7c7f9a;
+      --accent:    #b06aff;
+      --green:     #4caf83;
+      --red:       #e05c6a;
+      --yellow:    #f0b429;
+      --blue:      #4da6ff;
+      --radius:    10px;
+    }
 
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 32px 24px;
+    }
 
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
 
-    
-    
-  </head>
-  
-  
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#mapa-lilas-mds-20261" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
 
-  
+    header h1 span { color: var(--accent); }
 
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="Mapa L.I.L.A.S" class="md-header__button md-logo" aria-label="Mapa L.I.L.A.S" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+    .meta {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+    }
 
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Mapa L.I.L.A.S
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Home
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-      
-    
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
+    .meta strong { color: var(--text); }
+
+    /* ── Empty state ── */
+    .empty-banner {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 32px;
+    }
+
+    .empty-banner.visible { display: block; }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+    }
+
+    .card h2 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .card canvas {
+      max-height: 240px;
+    }
+
+    /* volume chart taller for horizontal bars */
+    .card.tall canvas {
+      max-height: 360px;
+    }
+
+    footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Métricas <span>L.I.L.A.S</span> — Painel SCRUM</h1>
+  <div class="meta" id="meta-block">
+    Repositório: <strong id="meta-repo">—</strong><br>
+    Atualizado em: <strong id="meta-time">—</strong>
   </div>
-</div>
-      
-    
-    
-  </nav>
-  
 </header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
 
-
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="." title="Mapa L.I.L.A.S" class="md-nav__button md-logo" aria-label="Mapa L.I.L.A.S" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
-
-    </a>
-    Mapa L.I.L.A.S
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#visao-do-produto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visão do Produto
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#funcionalidades-principais-epicos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Funcionalidades Principais (Épicos)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tecnologias-e-arquitetura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tecnologias e Arquitetura
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metodologia-e-ciclo-de-vida" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metodologia e Ciclo de Vida
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#como-executar-localmente" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Como Executar Localmente
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Como Executar Localmente">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-clonar-o-repositorio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Clonar o Repositório
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Arquitetura
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Arquitetura
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Arquitetura/Arquitetura Tecnica.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Arquitetura Técnica
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Requisitos
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Requisitos
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="Requisitos/Vis%C3%A3o%20de%20produto/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Visão geral
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ATAS Reunião
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    ATAS Reunião
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="ATAS%20Reuni%C3%A3o/Ata26_03/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reunião01
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="ATAS%20Reuni%C3%A3o/Ata30_03/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reunião02
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="ATAS%20Reuni%C3%A3o/ATA%20reuni%C3%A3o15_04/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reunião03
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#visao-do-produto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visão do Produto
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#funcionalidades-principais-epicos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Funcionalidades Principais (Épicos)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tecnologias-e-arquitetura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tecnologias e Arquitetura
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metodologia-e-ciclo-de-vida" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metodologia e Ciclo de Vida
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#como-executar-localmente" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Como Executar Localmente
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Como Executar Localmente">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-clonar-o-repositorio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Clonar o Repositório
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-
-<h1 id="mapa-lilas-mds-20261">🗺️ Mapa L.I.L.A.S - MDS 2026.1</h1>
-<p>Bem-vindo à documentação oficial do projeto <strong>Mapa L.I.L.A.S</strong>, desenvolvido no âmbito da disciplina de <strong>Métodos de Desenvolvimento de Software (MDS)</strong> da Universidade de Brasília (UnB).</p>
-<hr />
-<h2 id="visao-do-produto">Visão do Produto</h2>
-<p>O <strong>Mapa LILAS</strong> é uma plataforma concebida para o monitoramento de dados Legislativos com relação à Pauta do Feminicídio. 
-O nosso foco é fornecer uma solução de software fiável, mantendo controle de qualidade e aderência a práticas ágeis de desenvolvimento.</p>
-<h2 id="funcionalidades-principais-epicos">Funcionalidades Principais (Épicos)</h2>
-<ul>
-<li><strong>[Épico 1] -</strong></li>
-<li><strong>[Épico 2] -</strong></li>
-<li><strong>[Épico 3] -</strong></li>
-</ul>
-<h2 id="tecnologias-e-arquitetura">Tecnologias e Arquitetura</h2>
-<p>O projeto adota uma arquitetura moderna e escalável, utilizando as seguintes tecnologias:</p>
-<ul>
-<li><strong>Backend:</strong> Python (FastAPI)</li>
-<li><strong>Frontend:</strong> [React | TailwindCSS]</li>
-<li><strong>Base de Dados:</strong> PostgreSQL</li>
-<li><strong>Documentação:</strong> Material for MkDocs</li>
-</ul>
-<p>Para um aprofundamento nas nossas decisões técnicas, consulta o <strong><a href="Arquitetura/Arquitetura_Tecnica/">Documento de Arquitetura de Software</a></strong>.</p>
-<h2 id="metodologia-e-ciclo-de-vida">Metodologia e Ciclo de Vida</h2>
-<p>A equipa trabalha sob os princípios de metodologias ágeis (Scrum/Kanban), garantindo entregas contínuas e rastreabilidade:</p>
-<ul>
-<li><strong>Sprints:</strong> Ciclos iterativos de desenvolvimento.</li>
-<li><strong>Controlo de Versões:</strong> Adotamos o fluxo de trabalho <strong>GitFlow</strong> para a gestão da branch <code>Dev</code> e <code>Main</code>. Toda a integração de código passa por <em>Pull Requests</em> com revisão por pares.</li>
-<li><strong>Integração Contínua (CI/CD):</strong> Os nossos pipelines realizam testes automatizados, análise estática de código e o deployment contínuo desta documentação.</li>
-</ul>
-<h2 id="como-executar-localmente">Como Executar Localmente</h2>
-<p>Para configurares o ambiente de desenvolvimento na tua máquina, segue estes passos:</p>
-<h3 id="1-clonar-o-repositorio">1. Clonar o Repositório</h3>
-<pre><code class="language-bash">git clone [https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git)
-cd 2026-1-Mapa_L.I.L.A.S
-</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-        </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
+<div class="empty-banner" id="empty-banner">
+  😶 Sem atividades recentes no repositório. O painel será atualizado na próxima execução.
 </div>
-      
-    </div>
+
+<div class="grid">
+  <div class="card">
+    <h2>Commits por semana</h2>
+    <canvas id="chart-commits"></canvas>
   </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
-    
-    
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
-      
-    
-  </body>
+
+  <div class="card">
+    <h2>Fluxo de Issues — Abertas vs. Fechadas</h2>
+    <canvas id="chart-issues"></canvas>
+  </div>
+
+  <div class="card tall">
+    <h2>Volume por Issue (proxy de esforço — chars no corpo)</h2>
+    <canvas id="chart-volumes"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Pull Requests — Abertas / Mergeadas / Rejeitadas</h2>
+    <canvas id="chart-prs"></canvas>
+  </div>
+</div>
+
+<footer>Gerado automaticamente via GitHub Actions · Dados embutidos em build-time · Sem requisições em runtime</footer>
+
+<script type="application/json" id="data-payload">{"generated_at": "12/05/2026 às 23:04 UTC", "repo": "unb-mds/2026-1-Mapa_L.I.L.A.S", "has_activity": true, "weeks": ["2026-W09", "2026-W10", "2026-W11", "2026-W12", "2026-W13", "2026-W14", "2026-W15", "2026-W16", "2026-W17", "2026-W18", "2026-W19", "2026-W20"], "commits": [0, 0, 0, 1, 0, 2, 0, 7, 6, 14, 10, 13], "issues_opened": [0, 0, 0, 1, 4, 5, 6, 2, 5, 1, 0, 1], "issues_closed": [0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0], "issue_volumes": [{"number": 29, "title": "Critérios de Aceitação", "body_len": 6956}, {"number": 7, "title": "Estudo de Docker e Padronização do Ambiente", "body_len": 4939}, {"number": 20, "title": "Pesquisa Legislativa: Monitoramento de PLs (API do Senado)", "body_len": 4184}, {"number": 27, "title": "ATA Reunião 29/04", "body_len": 3242}, {"number": 24, "title": "Estudo: Requisitos e Fluxo de Dados para o Dashboard Interat", "body_len": 2656}, {"number": 6, "title": "Estudo: Implementação de Metodologia Ágil XP (Extreme Progra", "body_len": 2618}, {"number": 14, "title": "Estudo: Possibilidades de Simplificação textual", "body_len": 2268}, {"number": 10, "title": "Estudo: APIs, o básico e essencial", "body_len": 2256}, {"number": 4, "title": "Estudo: Requisitos de Software", "body_len": 2212}, {"number": 21, "title": "Criação do dockerfile", "body_len": 2014}, {"number": 11, "title": "Estudo PostegreSQL parte 2 (Fundamentos)", "body_len": 1876}, {"number": 15, "title": "Estudo PostegreSQL parte 1 (Conceitos importantes)", "body_len": 1737}, {"number": 13, "title": "Estudo FastApi", "body_len": 1724}, {"number": 2, "title": "📚 Estudo: Metodologias Ágeis", "body_len": 1595}, {"number": 9, "title": "Estudo Figma + Integração com Github", "body_len": 1557}, {"number": 8, "title": "Estudo: MkDocs", "body_len": 1524}, {"number": 12, "title": "Estudo React + TailwindCSS", "body_len": 1328}, {"number": 17, "title": "Visão de produto", "body_len": 1136}, {"number": 1, "title": "Estudo sobre arquitetura de software", "body_len": 1104}, {"number": 3, "title": "Estudo: Git e Github", "body_len": 970}, {"number": 5, "title": "Ata - Reunião 26/03", "body_len": 936}, {"number": 22, "title": "Wireframe - Figma", "body_len": 917}, {"number": 16, "title": "Protótipo I - Figma", "body_len": 633}, {"number": 23, "title": "Story Map - Figma", "body_len": 312}, {"number": 18, "title": "Ata Reunião 15/04", "body_len": 150}], "prs_opened": [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2], "prs_merged": [0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 1, 2], "prs_rejected": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}</script>
+
+<script>
+  // ── Leitura segura: o bloco acima é texto inerte, nunca executado como JS.
+  // Se o placeholder não foi substituído (ex: template aberto diretamente),
+  // o dashboard exibe estado vazio sem travar.
+  const EMPTY_STATE = {
+    has_activity: false, repo: "—", generated_at: "—",
+    weeks: [], commits: [],
+    issues_opened: [], issues_closed: [], issue_volumes: [],
+    prs_opened: [], prs_merged: [], prs_rejected: [],
+  };
+
+  let DATA = EMPTY_STATE;
+  try {
+    const raw = document.getElementById("data-payload").textContent.trim();
+    if (raw && raw !== "__DATA_PAYLOAD__") {
+      DATA = JSON.parse(raw);
+    }
+  } catch (e) {
+    console.warn("Falha ao ler dados injetados:", e);
+  }
+
+  // Populate meta
+  document.getElementById("meta-repo").textContent = DATA.repo || "—";
+  document.getElementById("meta-time").textContent = DATA.generated_at || "—";
+
+  if (!DATA.has_activity) {
+    document.getElementById("empty-banner").classList.add("visible");
+  }
+
+  // Shared Chart.js defaults
+  Chart.defaults.color = "#7c7f9a";
+  Chart.defaults.borderColor = "#2a2d3a";
+  Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+  Chart.defaults.font.size = 11;
+
+  const tooltipDefaults = {
+    backgroundColor: "#1a1d27",
+    borderColor: "#2a2d3a",
+    borderWidth: 1,
+    titleColor: "#e2e4ef",
+    bodyColor: "#b0b3c8",
+    padding: 10,
+  };
+
+  // ── 1. Commits ────────────────────────────────────────────────────────────
+  new Chart(document.getElementById("chart-commits"), {
+    type: "bar",
+    data: {
+      labels: DATA.weeks,
+      datasets: [{
+        label: "Commits",
+        data: DATA.commits,
+        backgroundColor: "rgba(176, 106, 255, 0.65)",
+        borderColor: "#b06aff",
+        borderWidth: 1,
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...tooltipDefaults },
+      },
+      scales: {
+        x: { ticks: { maxRotation: 45 } },
+        y: { beginAtZero: true, ticks: { stepSize: 1 } },
+      },
+    },
+  });
+
+  // ── 2. Issues Fluxo ───────────────────────────────────────────────────────
+  new Chart(document.getElementById("chart-issues"), {
+    type: "line",
+    data: {
+      labels: DATA.weeks,
+      datasets: [
+        {
+          label: "Abertas",
+          data: DATA.issues_opened,
+          borderColor: "#f0b429",
+          backgroundColor: "rgba(240,180,41,0.12)",
+          tension: 0.35,
+          fill: true,
+          pointRadius: 3,
+        },
+        {
+          label: "Fechadas",
+          data: DATA.issues_closed,
+          borderColor: "#4caf83",
+          backgroundColor: "rgba(76,175,131,0.12)",
+          tension: 0.35,
+          fill: true,
+          pointRadius: 3,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12 } },
+        tooltip: { ...tooltipDefaults, mode: "index", intersect: false },
+      },
+      scales: {
+        x: { ticks: { maxRotation: 45 } },
+        y: { beginAtZero: true, ticks: { stepSize: 1 } },
+      },
+    },
+  });
+
+  // ── 3. Volume por Issue ───────────────────────────────────────────────────
+  const volData = DATA.issue_volumes || [];
+  const hasVolumes = volData.length > 0;
+
+  new Chart(document.getElementById("chart-volumes"), {
+    type: "bar",
+    data: {
+      labels: hasVolumes
+        ? volData.map(i => `#${i.number} ${i.title}`)
+        : ["Sem issues no período"],
+      datasets: [{
+        label: "Caracteres no corpo",
+        data: hasVolumes ? volData.map(i => i.body_len) : [0],
+        backgroundColor: "rgba(77, 166, 255, 0.65)",
+        borderColor: "#4da6ff",
+        borderWidth: 1,
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          ...tooltipDefaults,
+          callbacks: {
+            label: ctx => ` ${ctx.parsed.x.toLocaleString("pt-BR")} chars`,
+          },
+        },
+      },
+      scales: {
+        x: { beginAtZero: true },
+        y: { ticks: { font: { size: 10 } } },
+      },
+    },
+  });
+
+  // ── 4. Pull Requests ──────────────────────────────────────────────────────
+  new Chart(document.getElementById("chart-prs"), {
+    type: "bar",
+    data: {
+      labels: DATA.weeks,
+      datasets: [
+        {
+          label: "Abertas",
+          data: DATA.prs_opened,
+          backgroundColor: "rgba(240,180,41,0.75)",
+          borderRadius: 4,
+          stack: "prs",
+        },
+        {
+          label: "Mergeadas",
+          data: DATA.prs_merged,
+          backgroundColor: "rgba(76,175,131,0.75)",
+          borderRadius: 4,
+          stack: "prs",
+        },
+        {
+          label: "Rejeitadas",
+          data: DATA.prs_rejected,
+          backgroundColor: "rgba(224,92,106,0.75)",
+          borderRadius: 4,
+          stack: "prs",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 12 } },
+        tooltip: { ...tooltipDefaults, mode: "index", intersect: false },
+      },
+      scales: {
+        x: { ticks: { maxRotation: 45 }, stacked: true },
+        y: { beginAtZero: true, stacked: true, ticks: { stepSize: 1 } },
+      },
+    },
+  });
+</script>
+</body>
 </html>
