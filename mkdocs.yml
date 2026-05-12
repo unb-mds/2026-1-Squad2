@@ -9,6 +9,8 @@ theme:
 
 nav:
   - Home: index.md
+  - Arquitetura:
+    - Arquitetura Técnica: Arquitetura/Arquitetura Tecnica.md
   - Requisitos:
     - Visão geral: Requisitos/Visão de produto.md
   - ATAS Reunião:
