@@ -35,5 +35,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./metrics/output
-          # Sem force_orphan: preserva o último deploy funcional caso esta
-          # execução falhe após o push parcial.
+          destination_dir: scrum
+          keep_files: true   # não apaga o restante do gh-pages ao publicar
