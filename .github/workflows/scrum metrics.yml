@@ -30,10 +30,15 @@ jobs:
           # GITHUB_REPOSITORY já é injetado automaticamente pelo Actions
         run: python metrics/analyzer.py
 
-      - name: Publicar no GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./metrics/output
-          destination_dir: scrum
-          keep_files: true   # não apaga o restante do gh-pages ao publicar
+      - name: Salvar métricas na pasta docs
+        run: |
+          mkdir -p docs/scrum
+          cp -r metrics/output/* docs/scrum/
+          
+      - name: Commit e Push das métricas atualizadas
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/scrum/
+          git commit -m "chore: atualiza métricas scrum [skip ci]" || echo "Sem mudanças para commitar"
+          git push
