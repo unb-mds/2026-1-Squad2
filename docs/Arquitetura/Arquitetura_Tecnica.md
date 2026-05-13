@@ -141,7 +141,6 @@ O **Mapa L.I.L.A.S** é uma aplicação web para busca e acompanhamento de proje
 
 | Componente | Tipo | Responsabilidade |
 |---|---|---|
-| `Flask App` | API Core | Configuração global: logs, CORS, rota raiz `/` |
 | `PL+ Endpoint` | API Core | Endpoint principal que agrega e devolve PLs processados |
 | `MonitorApiOrchestrator` | Application Service | Coordena chamadas às APIs, analisa textos e aplica filtros |
 | `CamaraApiClient` | API Client | Realiza chamadas HTTP à API da Câmara dos Deputados |
@@ -198,7 +197,6 @@ O **Mapa L.I.L.A.S** é uma aplicação web para busca e acompanhamento de proje
 
 | Aspecto | Medida |
 |---|---|
-| **CORS** | Configurado no Flask App para aceitar apenas origens autorizadas |
 | **Validação de inputs** | FilterParams (Pydantic) valida todos os parâmetros de entrada |
 | **Rate limiting** | Recomendado implementar rate limit nas rotas públicas |
 | **SQL Injection** | Uso de ORM/queries parametrizadas (nunca SQL concatenado) |
