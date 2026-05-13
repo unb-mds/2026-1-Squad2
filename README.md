@@ -42,7 +42,7 @@ O repositório está organizado da seguinte forma:
 2026-1-Mapa_L.I.L.A.S/
 ├── backend/            # API em FastAPI, modelos, rotas e regras de negócio
 ├── frontend/           # Aplicação web em React + Vite e estilização Tailwind
-├── docs                # Pasta com toda documentação do projeto
+├── docs/               # Pasta com toda documentação do projeto
 ├── docker-compose.yml  # Orquestração dos containers (Front, Back e Banco de Dados)
 └── README.md           # Documentação principal
 
