@@ -249,64 +249,79 @@ O sistema gera um arquivo `index.html` hospedado no GitHub Pages que apresenta:
 
 ### 4. Desenvolvimento do Banco de Dados (PostgreSQL)
 
-```Tables
-  Table pls_senado {
-    id integer [primary key ,not null] // ID interno do json (ex: 8096817)
-    codigoMateria integer [not null] // Fundamental para buscar os detalhes na API depois (ex: 148901)
-    identificacao varchar [not null] // Ex: "PL 2325/2021"
-    dataApresentacao date
-    dataDeliberacao date
-    ementa text [not null]
-    objetivo varchar
-    tipoDocumento varchar
-    tramitando boolean
-    siglaTipoDeliberacao varchar // Opcional, mas útil para exibir o status atual na listagem
-  }
+**Status:** spec
 
-  Table pls_camara {
-    id integer [primary key, not null] // Vem direto da listagem (ex: 566855)
-    numero integer [not null] // Fundamental para exibir no frontend (ex: PL 5097/2013)
-    ano integer
-    siglaTipo varchar 
-    uri varchar // Link da API
-    dataApresentacao timestamp // Recomendo timestamp pois a API retorna "2013-03-07T17:45"
-    ementa text [not null]
-    descricaoTipo varchar // Vem do endpoint específico
-    descricaoSituacao varchar // Vem de statusProposicao > descricaoSituacao
-    despacho text // Vem do endpoint específico (use text, pois pode ser longo)
-  }
+#### Spec
 
-  Table parlamentares {
-    id varchar [primary key, not null,note: 'Use prefixo para evitar conflito. Ex: "cam_141492" ou "sen_5783"']
-    casa varchar [not null,note: 'Valores: "Câmara" ou "Senado"']
-    nome_eleitoral varchar [not null,note: 'Câmara: ultimoStatus.nome | Senado: NomeParlamentar']
-    nome_civil varchar [note: 'Câmara: nomeCivil | Senado: NomeCompletoParlamentar']
-    sigla_partido varchar [not null,note: 'Câmara: ultimoStatus.siglaPartido | Senado: SiglaPartidoParlamentar']
-    sigla_uf varchar(2) [note: 'Câmara: ultimoStatus.siglaUf | Senado: UfParlamentar']
-    
-    // Esse campo é vital para o L.I.L.A.S. (Análise de gênero dos autores)
-    sexo varchar(1) [not null,note: 'Padronize no backend: "F" ou "M"'] 
-    
-    url_foto varchar 
-    status_mandato varchar [note: 'Câmara: situacao ou condicaoEleitoral | Senado: DescricaoParticipacao']
-  }
-  Table autoria_camara {
-    id_pl integer [ref: > pls_camara.id]
-    id_parlamentar varchar [ref: > parlamentares.id]
-    tipo_autoria varchar [note: 'Ex: "Autor principal", "Coautor"']
-    
-    indexes {
-      (id_pl, id_parlamentar) [pk] // Chave primária composta
-    }
-  }
+Esta funcionalidade estabelece a espinha dorsal de dados do Mapa L.I.L.A.S, garantindo que as informações coletadas das APIs governamentais sejam armazenadas de forma estruturada, permitindo consultas complexas, análises de gênero e monitoramento de tramitação em tempo real.
 
-  Table autoria_senado {
-    id_pl integer [ref: > pls_senado.id]
-    id_parlamentar varchar [ref: > parlamentares.id]
-    tipo_autoria varchar 
-    
-    indexes {
-      (id_pl, id_parlamentar) [pk] // Chave primária composta
-    }
-  }
+**Comportamento Observável:**
+- O banco de dados centraliza as proposições da Câmara e do Senado em um esquema que permite a filtragem unificada por UF, partido, ano e estágio de tramitação.
+- O sistema mantém um registro histórico de parlamentares, incluindo dados vitais para o projeto como o sexo (para análise de autoria feminina em leis de combate ao feminicídio).
+- A estrutura de tabelas de autoria (`autoria_camara`, `autoria_senado`) permite identificar quem são os autores principais e coautores de cada projeto, alimentando o indicador de "parlamentares mais ativos".
+- **Histórico Linear:** O sistema armazena a linha do tempo completa de tramitação de cada projeto em tabelas dedicadas, permitindo a exibição do passo a passo do status (RF06).
+- **Cofre de Dados (Raw Data):** O banco salva o payload JSON original das APIs governamentais junto aos dados estruturados, servindo como backup caso o parser precise ser reprocessado no futuro.
+
+**Critérios de aceitação:**
+1. **Unicidade de Registros:** O banco deve utilizar chaves primárias que evitem a duplicidade de proposições ao rodar coletas repetitivas (2 em 2h). Para parlamentares, deve ser aplicado o padrão de prefixo (ex: `cam_141492`) para evitar conflitos de IDs.
+2. **Normalização e Restrições (Constraints):** O campo `sexo` na tabela `parlamentares` deve ser restrito a "F" ou "M" (`ck_parlamentares_sexo`), e a casa legislativa restrita a "Câmara" ou "Senado" (`ck_parlamentares_casa`).
+3. **Integridade Referencial e Cascatas:** Exclusões de projetos ou parlamentares devem refletir em `CASCADE` nas tabelas de autoria e tramitações para evitar dados órfãos no banco.
+4. **Auditoria:** Todas as tabelas mutáveis devem conter campos `created_at` e `updated_at` gerenciados pelo servidor de banco de dados (`func.now()`).
+5. **Tipagem Híbrida:** O armazenamento dos dados originais das APIs deve utilizar o tipo `JSONB` nativo do PostgreSQL nas tabelas de proposições e tramitações.
+
+**Casos de borda:**
+- **Parlamentares sem partido:** O banco deve aceitar valores nulos ou "Sem Partido" (S/Part) para parlamentares em transição, sem quebrar as rotas de filtragem.
+- **Ementas Longas:** O campo `ementa` deve ser do tipo `TEXT` para suportar descrições legislativas extensas.
+
+#### Plano
+
+**Decisões técnicas:**
+
+- **ORM e Modelagem:**
+  - **Escolha:** SQLAlchemy (com DeclarativeBase e tipagem nativa).
+  - **Rationale:** Permite mapeamento robusto, uso nativo de dialectos do Postgres (como JSONB) e configuração granular de constraints de banco e ondelete (CASCADE).
+- **Gerenciamento de Migrações:**
+  - **Escolha:** Alembic.
+  - **Rationale:** Essencial para evoluir o schema do banco à medida que novos campos das APIs governamentais forem mapeados, sem perda de dados históricos já coletados.
+- **Estratégia de Inserção e Atualização:**
+  - **Escolha:** "Upsert" (Update or Insert) baseado no ID único da proposição, atualizando as linhas do tempo de tramitação incrementalmente.
+  - **Rationale:** Cumpre o princípio da Constituição de "evitar duplicidade", garantindo que novos status simplesmente adicionem novas linhas na tabela de tramitação respectiva.
+
+#### Tarefas
+
+1. **Configuração do Ambiente Database:**
+   - **Depende de:** —
+   - **Pronto quando:** Instância PostgreSQL configurada e acessível via string de conexão no arquivo `.env`.
+
+2. **Implementação das Models (SQLAlchemy):**
+   - **Depende de:** 1.
+   - **Pronto quando:** Arquivos de modelos criados com os relacionamentos Bidirecionais (`relationship` e `back_populates`) para Proposições, Tramitações, Parlamentares e Autoria.
+
+3. **Criação dos Scripts de Migração Inicial:**
+   - **Depende de:** 2.
+   - **Pronto quando:** Comando `alembic upgrade head` executado com sucesso, criando todas as tabelas no banco de dados.
+
+4. **Desenvolvimento dos Entrypoints de Persistência:**
+   - **Depende de:** 2.
+   - **Pronto quando:** Funções de serviço estiverem implementadas processando e preenchendo as chaves estrangeiras corretamente (garantindo que o Parlamentar exista antes da Autoria, e o PL exista antes da Tramitação).
+
+5. **Otimização e Índices:**
+   - **Depende de:** 3.
+   - **Pronto quando:** Índices de banco de dados aplicados nas colunas de busca (UF, Partido, Tipo de Proposição) para suportar os filtros do Portal (RF08).
+
+#### Tabelas de Referência (Esquema Central)
+
+```sql
+  -- Proposições
+  pls_senado (id PK, codigo_materia, identificacao, ementa, dados_raw JSONB, updated_at)
+  pls_camara (id PK, numero, ano, sigla_tipo, ementa, dados_raw JSONB, updated_at)
+
+  -- Histórico (1:N)
+  tramitacao_senado (id PK, id_pl FK, situacao, local, sequencia, dados_raw JSONB)
+  tramitacao_camara (id PK, id_pl FK, situacao, local, sequencia, dados_raw JSONB)
+
+  -- Parlamentares e Autoria (N:M)
+  parlamentares (id PK, casa, nome_eleitoral, sigla_partido, sigla_uf, sexo)
+  autoria_camara (id_pl FK, id_parlamentar FK, tipo_autoria) -- PK Composta
+  autoria_senado (id_pl FK, id_parlamentar FK, tipo_autoria) -- PK Composta
 ```
