@@ -10,7 +10,6 @@ Base URL: https://dadosabertos.camara.leg.br/api/v2
 
 import logging
 from typing import Any, Iterator, Optional
-
 import requests
 
 logger = logging.getLogger(__name__)
@@ -28,12 +27,10 @@ PALAVRAS_CHAVE = [
 
 SIGLAS_TIPO = ["PL", "PLP"]
 
+# Dicionário de Cache em memória para não repetir requisições
+_cache_deputados = {}
 
 def _get(path: str, params: Optional[dict] = None) -> Optional[dict[str, Any]]:
-    """
-    Faz GET na API da Câmara. Retorna JSON ou None em caso de falha.
-    Falhas são logadas como warning sem propagar exceção (resiliência — CA5).
-    """
     url = f"{BASE_URL}/{path.lstrip('/')}"
     try:
         resp = requests.get(url, params=params, timeout=TIMEOUT)
@@ -43,18 +40,11 @@ def _get(path: str, params: Optional[dict] = None) -> Optional[dict[str, Any]]:
         logger.warning("Câmara API indisponível [%s]: %s", url, exc)
         return None
 
-
 def listar_proposicoes(
     sigla_tipo: str,
     keyword: str,
     ano_inicial: Optional[int] = None,
 ) -> Iterator[dict[str, Any]]:
-    """
-    Itera sobre todas as páginas de proposições para uma combinação de
-    sigla + keyword, opcionalmente filtrando por ano de apresentação.
-
-    Yield: dicionário bruto de cada proposição (item do campo 'dados').
-    """
     pagina = 1
     while True:
         params: dict[str, Any] = {
@@ -78,33 +68,40 @@ def listar_proposicoes(
 
         yield from dados
 
-        # Verifica se há próxima página pelo campo 'links'
         links = raw.get("links", [])
         tem_proxima = any(lnk.get("rel") == "next" for lnk in links)
         if not tem_proxima:
             break
         pagina += 1
 
-
 def buscar_detalhe(id_proposicao: int) -> Optional[dict[str, Any]]:
-    """Retorna o JSON bruto do endpoint de detalhe de uma proposição."""
     raw = _get(f"/proposicoes/{id_proposicao}")
     if not raw:
         return None
     return raw.get("dados")
 
-
 def buscar_autores(id_proposicao: int) -> list[dict[str, Any]]:
-    """Retorna lista bruta de autores de uma proposição."""
     raw = _get(f"/proposicoes/{id_proposicao}/autores")
     if not raw:
         return []
     return raw.get("dados", [])
 
-
 def buscar_tramitacoes(id_proposicao: int) -> list[dict[str, Any]]:
-    """Retorna lista bruta de tramitações de uma proposição."""
     raw = _get(f"/proposicoes/{id_proposicao}/tramitacoes")
     if not raw:
         return []
     return raw.get("dados", [])
+
+def buscar_deputado(id_deputado: int) -> Optional[dict[str, Any]]:
+    """Busca detalhes de um deputado específico, usando cache em memória."""
+    id_str = str(id_deputado)
+    if id_str in _cache_deputados:
+        return _cache_deputados[id_str]
+        
+    raw = _get(f"/deputados/{id_str}")
+    if not raw:
+        return None
+        
+    dados = raw.get("dados", {})
+    _cache_deputados[id_str] = dados
+    return dados

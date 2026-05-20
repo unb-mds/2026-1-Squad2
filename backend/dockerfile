@@ -19,8 +19,12 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8000
 
-# Garante que o entrypoint seja executável
-RUN chmod +x entrypoint.sh
+# A JOGADA DE MESTRE:
+# Copia o script para a raiz do contêiner (fora do /app)
+COPY entrypoint.sh /entrypoint.sh
 
-# Roda migrations e depois sobe o servidor
-ENTRYPOINT ["./entrypoint.sh"]
+# Remove quebras de linha do Windows (CRLF para LF) e dá permissão de execução
+RUN sed -i 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
+
+# Roda o entrypoint a partir da raiz
+ENTRYPOINT ["/entrypoint.sh"]
