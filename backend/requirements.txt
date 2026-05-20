@@ -2,3 +2,5 @@ fastapi[standard]
 uvicorn
 sqlalchemy
 httpx
+alembic
+psycopg2-binary

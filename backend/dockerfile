@@ -19,5 +19,8 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8000
 
-# Comando para rodar o FastAPI com Hot Reload (ótimo para desenvolvimento)
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Garante que o entrypoint seja executável
+RUN chmod +x entrypoint.sh
+
+# Roda migrations e depois sobe o servidor
+ENTRYPOINT ["./entrypoint.sh"]
