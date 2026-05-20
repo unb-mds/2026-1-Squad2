@@ -294,3 +294,31 @@ def upsert_tramitacoes_senado(session: Session, id_pl: int, movimentacoes_raw: A
             
     except Exception as exc:
         logger.error("Erro no upsert_tramitacoes_senado para o PL %d: %s", id_pl, exc)
+
+
+
+
+
+from typing import Optional
+
+def normalizar_status_camara(descricao_situacao: Optional[str]) -> str:
+    """
+    Converte descricao_situacao da Câmara nos 3 valores aceitos pelo front end.
+    """
+    if not descricao_situacao:
+        return "em_tramitacao"
+    if descricao_situacao == "Transformado em Norma Jurídica":
+        return "aprovado"
+    if descricao_situacao == "Arquivada":
+        return "arquivado"
+    return "em_tramitacao"
+
+def normalizar_status_senado(sigla_tipo_deliberacao: Optional[str], tramitando: Optional[bool]) -> str:
+    """
+    Converte sigla_tipo_deliberacao + tramitando do Senado nos 3 valores aceitos pelo front end.
+    """
+    if sigla_tipo_deliberacao in ("AP", "SAN"):
+        return "aprovado"
+    if sigla_tipo_deliberacao in ("RETIRADO_PELO_AUTOR", "ARQUIVADO_FIM_LEGISLATURA"):
+        return "arquivado"
+    return "em_tramitacao"

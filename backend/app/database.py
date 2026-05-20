@@ -50,3 +50,15 @@ def create_tables() -> None:
 
 if __name__ == "__main__":
     create_tables()
+
+
+def get_db():
+    """
+    Gera uma sessão do banco de dados para cada requisição 
+    e a fecha automaticamente ao final.
+    """
+    db = SessionLocal() # ATENÇÃO: se o seu sessionmaker tiver outro nome, altere aqui.
+    try:
+        yield db
+    finally:
+        db.close()

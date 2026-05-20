@@ -10,8 +10,8 @@ def carga_inicial():
     db = SessionLocal()
     try:
         # Troque 2023 pelo ano que o squad definiu como escopo
-        total_camara = coletar_camara(db, ano_inicial=2000)
-        print(f"Câmara finalizada! {total_camara} registros.")
+        #total_camara = coletar_camara(db, ano_inicial=2000)
+        #print(f"Câmara finalizada! {total_camara} registros.")
 
         total_senado = coletar_senado(db, ano_inicial=2000)
         print(f"Senado finalizado! {total_senado} registros.")

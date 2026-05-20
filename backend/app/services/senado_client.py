@@ -15,7 +15,6 @@ PALAVRAS_CHAVE = [
     "feminicídio",
     "violência doméstica",
     "direitos da mulher",
-    "mulher",
 ]
 
 CODIGOS_ASSUNTO = [130, 143]

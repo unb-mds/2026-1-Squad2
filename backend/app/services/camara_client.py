@@ -22,7 +22,6 @@ PALAVRAS_CHAVE = [
     "feminicídio",
     "violência doméstica",
     "direitos da mulher",
-    "mulher",
 ]
 
 SIGLAS_TIPO = ["PL", "PLP"]
