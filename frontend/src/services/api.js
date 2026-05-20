@@ -1,7 +1,7 @@
 import { mockProjetos, mockFiltros } from '../mocks/projetosLei';
 
 // Mude para false quando o backend estiver pronto
-const USE_MOCK = true;
+const USE_MOCK = false;
 const BASE_URL = 'http://localhost:8000';
 
 export async function fetchProjetos(params = {}) {
