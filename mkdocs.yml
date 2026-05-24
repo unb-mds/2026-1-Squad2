@@ -10,10 +10,11 @@ theme:
 nav:
   - Home: index.md
   - Arquitetura:
-    - Arquitetura Técnica: Arquitetura/Arquitetura Tecnica.md
+    - Arquitetura Técnica: Arquitetura/Arquitetura_Tecnica.md
   - Requisitos:
     - Visão geral: Requisitos/Visão de produto.md
   - ATAS Reunião:
     - Reunião01: ATAS Reunião/Ata26_03.md
     - Reunião02: ATAS Reunião/Ata30_03.md
     - Reunião03: ATAS Reunião/ATA reunião15_04.md
+  - Métricas de Produtividade: scrum/index.html
