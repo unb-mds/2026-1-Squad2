@@ -1,0 +1,2078 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação do projeto, com os nossos estudos, conteúdos de Sprints, e tudo mais que for relevante para o projeto.">
+      
+      
+      
+      
+        <link rel="prev" href="../Vis%C3%A3o%20de%20produto/">
+      
+      
+        <link rel="next" href="../../ATAS%20Reuni%C3%A3o/Ata26_03/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Critérios de Aceitação - Mapa L.I.L.A.S</title>
+      
+    
+    
+
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#criterios-de-aceitacao-mapa-lilas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mapa L.I.L.A.S" class="md-header__button md-logo" aria-label="Mapa L.I.L.A.S" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mapa L.I.L.A.S
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Critérios de Aceitação
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Arquitetura/Arquitetura_Tecnica/" class="md-tabs__link">
+          
+  
+  
+  Arquitetura
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Vis%C3%A3o%20de%20produto/" class="md-tabs__link">
+          
+  
+  
+  Requisitos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ATAS%20Reuni%C3%A3o/Ata26_03/" class="md-tabs__link">
+          
+  
+  
+  ATAS Reunião
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Estudos/Sprint00.md" class="md-tabs__link">
+          
+  
+  
+  Estudos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scrum/" class="md-tabs__link">
+          
+  
+  
+  Métricas de Produtividade
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mapa L.I.L.A.S" class="md-nav__button md-logo" aria-label="Mapa L.I.L.A.S" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Mapa L.I.L.A.S
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arquitetura
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Arquitetura/Arquitetura_Tecnica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura Técnica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Requisitos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Vis%C3%A3o%20de%20produto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visão geral
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Critérios de Aceitação
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Critérios de Aceitação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#epico-1-visualizacao-de-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 1: Visualização de Dashboards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 1: Visualização de Dashboards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-carregamento-e-estado-inicial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Carregamento e Estado Inicial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-implementacao-dos-filtros-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Implementação dos Filtros de Dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validacao-de-selecao-de-dados-bloqueio-de-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Validação de Seleção de Dados (Bloqueio de UI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-alternancia-do-tipo-de-grafico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Alternância do Tipo de Gráfico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tratamento-de-retorno-singular-fallback-numerico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tratamento de Retorno Singular (Fallback Numérico)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-tratamento-de-retorno-vazio-empty-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tratamento de Retorno Vazio (Empty State)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-2-home-landing-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 2: Home (Landing Page)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 2: Home (Landing Page)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-painel-de-indicadores-gerais-kpis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Painel de Indicadores Gerais (KPIs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-exibicao-de-graficos-de-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Exibição de Gráficos de Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rankings-e-metricas-especificas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Rankings e Métricas Específicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-timeline-de-movimentacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Timeline de Movimentações
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-navegacao-calls-to-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Navegação (Calls to Action)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-informacoes-institucionais-footer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Informações Institucionais (Footer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-resiliencia-e-tratamento-de-falhas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Resiliência e Tratamento de Falhas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-3-consulta-de-proposicoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 3: Consulta de Proposições
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 3: Consulta de Proposições">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-campos-de-busca-e-filtros-avancados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Campos de Busca e Filtros Avançados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-processamento-da-busca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Processamento da Busca
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-listagem-e-paginacao-restrita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Listagem e Paginação Restrita
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-navegacao-de-detalhamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Navegação de Detalhamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tratamento-de-ausencia-de-resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tratamento de Ausência de Resultados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-4-detalhamento-legislativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 4: Detalhamento Legislativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 4: Detalhamento Legislativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-roteamento-e-carregamento-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Roteamento e Carregamento de Dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-exibicao-de-metadados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Exibição de Metadados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-linha-do-tempo-do-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Linha do Tempo do Histórico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-download-do-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Download do PDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-compartilhamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Compartilhamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-navegacao-contextual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Navegação Contextual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-tratamento-de-falha-critica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tratamento de Falha Crítica
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ATAS Reunião
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ATAS Reunião
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ATAS%20Reuni%C3%A3o/Ata26_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reunião01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ATAS%20Reuni%C3%A3o/Ata30_03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reunião02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ATAS%20Reuni%C3%A3o/ATA%20reuni%C3%A3o15_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reunião03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ATAS%20Reuni%C3%A3o/Ata29_04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reunião04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ATAS%20Reuni%C3%A3o/Ata06_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reunião05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ATAS%20Reuni%C3%A3o/Ata13_05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reunião06
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estudos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Estudos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Estudos/Sprint00.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estudo00
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Estudos/Sprint01.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estudo01
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Estudos/Sprint02.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estudo02
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Estudos/Sprint03.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estudo03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Estudos/Sprint04.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estudo04
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métricas de Produtividade
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Métricas de Produtividade
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scrum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#epico-1-visualizacao-de-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 1: Visualização de Dashboards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 1: Visualização de Dashboards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-carregamento-e-estado-inicial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Carregamento e Estado Inicial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-implementacao-dos-filtros-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Implementação dos Filtros de Dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-validacao-de-selecao-de-dados-bloqueio-de-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Validação de Seleção de Dados (Bloqueio de UI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-alternancia-do-tipo-de-grafico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Alternância do Tipo de Gráfico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tratamento-de-retorno-singular-fallback-numerico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tratamento de Retorno Singular (Fallback Numérico)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-tratamento-de-retorno-vazio-empty-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Tratamento de Retorno Vazio (Empty State)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-2-home-landing-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 2: Home (Landing Page)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 2: Home (Landing Page)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-painel-de-indicadores-gerais-kpis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Painel de Indicadores Gerais (KPIs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-exibicao-de-graficos-de-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Exibição de Gráficos de Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-rankings-e-metricas-especificas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Rankings e Métricas Específicas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-timeline-de-movimentacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Timeline de Movimentações
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-navegacao-calls-to-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Navegação (Calls to Action)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-informacoes-institucionais-footer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Informações Institucionais (Footer)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-resiliencia-e-tratamento-de-falhas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Resiliência e Tratamento de Falhas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-3-consulta-de-proposicoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 3: Consulta de Proposições
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 3: Consulta de Proposições">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-campos-de-busca-e-filtros-avancados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Campos de Busca e Filtros Avançados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-processamento-da-busca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Processamento da Busca
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-listagem-e-paginacao-restrita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Listagem e Paginação Restrita
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-navegacao-de-detalhamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Navegação de Detalhamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-tratamento-de-ausencia-de-resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tratamento de Ausência de Resultados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epico-4-detalhamento-legislativo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Épico 4: Detalhamento Legislativo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Épico 4: Detalhamento Legislativo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-roteamento-e-carregamento-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Roteamento e Carregamento de Dados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-exibicao-de-metadados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Exibição de Metadados
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-linha-do-tempo-do-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Linha do Tempo do Histórico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-download-do-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Download do PDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-compartilhamento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Compartilhamento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-navegacao-contextual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Navegação Contextual
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-tratamento-de-falha-critica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Tratamento de Falha Crítica
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+
+
+                  
+
+
+
+<h1 id="criterios-de-aceitacao-mapa-lilas">Critérios de Aceitação - Mapa L.I.L.A.S</h1>
+<p>Este documento detalha os critérios de aceitação técnicos para as funcionalidades de front-end e back-end mapeadas nos épicos do sistema de monitoramento legislativo.</p>
+<hr />
+<h2 id="epico-1-visualizacao-de-dashboards">Épico 1: Visualização de Dashboards</h2>
+<p><strong>Funcionalidades:</strong> Geração de gráficos, filtros cruzados de dados e alternância de tipos de visualização.</p>
+<h3 id="1-carregamento-e-estado-inicial">1. Carregamento e Estado Inicial</h3>
+<ul>
+<li>A página deve realizar uma requisição (fetch) à API no momento da montagem do componente para buscar um dataset padrão.</li>
+<li>O sistema deve renderizar um componente de gráfico padrão alimentado por esses dados iniciais.</li>
+<li>O front-end deve exibir um indicador de carregamento (spinner ou skeleton) enquanto aguarda a resposta da API.</li>
+</ul>
+<h3 id="2-implementacao-dos-filtros-de-dados">2. Implementação dos Filtros de Dados</h3>
+<ul>
+<li>A interface deve conter componentes de seleção (dropdowns, datepickers, etc.) mapeados para: Estado, Partido, Gênero dos Autores, Data, Status e Tema (Feminicídio, Mulher, Violência doméstica).</li>
+<li>O front-end deve gerenciar o estado dos filtros e formatar os parâmetros (query strings) para o envio à API.</li>
+</ul>
+<h3 id="3-validacao-de-selecao-de-dados-bloqueio-de-ui">3. Validação de Seleção de Dados (Bloqueio de UI)</h3>
+<ul>
+<li>Se o estado de todos os filtros de dados for nulo ou vazio, o gráfico não deve ser renderizado.</li>
+<li>A interface deve bloquear novas buscas e exibir um helper text exigindo que pelo menos um filtro de dado seja selecionado.</li>
+</ul>
+<h3 id="4-alternancia-do-tipo-de-grafico">4. Alternância do Tipo de Gráfico</h3>
+<ul>
+<li>A página deve incluir um seletor visual para: Rosca, Pizza, Barra, Coluna e Mapa do Brasil por estado.</li>
+<li>A alteração neste seletor <strong>não deve</strong> disparar uma nova requisição ao back-end.</li>
+<li>O sistema deve re-renderizar o gráfico dinamicamente com o novo formato, reaproveitando o payload já armazenado no estado local.</li>
+</ul>
+<h3 id="5-tratamento-de-retorno-singular-fallback-numerico">5. Tratamento de Retorno Singular (Fallback Numérico)</h3>
+<ul>
+<li>Se a busca resultar em um dado absoluto único (sem subcategorias para comparação cruzada), o gráfico deve ser ocultado.</li>
+<li>O front-end deve renderizar um componente de Card/Badge destacando apenas o número absoluto e sua respectiva legenda.</li>
+</ul>
+<h3 id="6-tratamento-de-retorno-vazio-empty-state">6. Tratamento de Retorno Vazio (Empty State)</h3>
+<ul>
+<li>Se a API retornar um array vazio <code>[]</code>, o sistema deve ocultar a área do gráfico.</li>
+<li>Deve ser renderizado um <em>Empty State</em> informando que nenhuma proposta corresponde aos filtros.</li>
+</ul>
+<hr />
+<h2 id="epico-2-home-landing-page">Épico 2: Home (Landing Page)</h2>
+<p><strong>Funcionalidades:</strong> Painel inicial com indicadores, estatísticas resumidas e navegação.</p>
+<h3 id="1-painel-de-indicadores-gerais-kpis">1. Painel de Indicadores Gerais (KPIs)</h3>
+<ul>
+<li>O sistema deve realizar uma requisição para buscar as métricas globais e exibir em Cards os totais de:</li>
+<li>Projetos gerais.</li>
+<li>Projetos recém-cadastrados.</li>
+<li>Projetos em tramitação.</li>
+<li>Projetos aprovados e arquivados.</li>
+</ul>
+<h3 id="2-exibicao-de-graficos-de-overview">2. Exibição de Gráficos de Overview</h3>
+<ul>
+<li>A página deve renderizar componentes gráficos simplificados com dados estatísticos pré-selecionados, sem exigir aplicação de filtros pelo usuário nesta tela.</li>
+</ul>
+<h3 id="3-rankings-e-metricas-especificas">3. Rankings e Métricas Específicas</h3>
+<ul>
+<li>A interface deve exibir uma lista categorizada dos "Top 5 Estados" com maior volume de propostas.</li>
+<li>A interface deve exibir a lista dos "Parlamentares mais ativos", ordenada de forma decrescente.</li>
+<li>O sistema deve calcular e exibir o "Tempo Médio de Tramitação" global.</li>
+</ul>
+<h3 id="4-timeline-de-movimentacoes">4. Timeline de Movimentações</h3>
+<ul>
+<li>O front-end deve renderizar um componente de feed consumindo uma listagem limitada das movimentações legislativas mais recentes, ordenadas por data decrescente.</li>
+</ul>
+<h3 id="5-navegacao-calls-to-action">5. Navegação (Calls to Action)</h3>
+<ul>
+<li>A interface deve conter CTAs (botões/links) de destaque direcionando para:</li>
+<li>A rota da página de Pesquisa de Projetos de Lei (PLs).</li>
+<li>A rota da página de Geração de Dashboards.</li>
+</ul>
+<h3 id="6-informacoes-institucionais-footer">6. Informações Institucionais (Footer)</h3>
+<ul>
+<li>O final da página deve renderizar um rodapé contendo informações explicativas sobre o projeto e dados de contato.</li>
+</ul>
+<h3 id="7-resiliencia-e-tratamento-de-falhas">7. Resiliência e Tratamento de Falhas</h3>
+<ul>
+<li>Em caso de falha crítica nas APIs (500, timeout), a página não deve quebrar silenciosamente.</li>
+<li>O sistema deve exibir uma tela de falha ou disparar um recarregamento automático (<code>window.location.reload()</code>).</li>
+</ul>
+<hr />
+<h2 id="epico-3-consulta-de-proposicoes">Épico 3: Consulta de Proposições</h2>
+<p><strong>Funcionalidades:</strong> Busca textual, aplicação de filtros e listagem paginada de projetos de lei.</p>
+<h3 id="1-campos-de-busca-e-filtros-avancados">1. Campos de Busca e Filtros Avançados</h3>
+<ul>
+<li>A interface deve disponibilizar um campo de input para "Busca Livre" (texto).</li>
+<li>O sistema deve renderizar componentes de seleção para: Ano/Período, Partido, Estado e Status (Apresentação, Comissão, Votação e Sanção).</li>
+</ul>
+<h3 id="2-processamento-da-busca">2. Processamento da Busca</h3>
+<ul>
+<li>O front-end deve concatenar a busca livre com os filtros avançados e enviá-los como query params à API.</li>
+<li>A API deve aplicar o operador lógico AND entre os filtros para refinar o resultado.</li>
+</ul>
+<h3 id="3-listagem-e-paginacao-restrita">3. Listagem e Paginação Restrita</h3>
+<ul>
+<li>O sistema deve implementar paginação estrita, exibindo <strong>exatamente o máximo de 5 PLs por página</strong>.</li>
+<li>O front-end deve disponibilizar controles de navegação (Próximo, Anterior e Página Atual).</li>
+</ul>
+<h3 id="4-navegacao-de-detalhamento">4. Navegação de Detalhamento</h3>
+<ul>
+<li>Cada card/item da lista de resultados deve ser clicável.</li>
+<li>Ao clicar, o sistema deve realizar o roteamento do usuário para a página de detalhes da proposição usando seu respectivo ID (ex: <code>/pl/:id</code>).</li>
+</ul>
+<h3 id="5-tratamento-de-ausencia-de-resultados">5. Tratamento de Ausência de Resultados</h3>
+<ul>
+<li>Se a API retornar um conjunto vazio, a lista de PLs não deve ser renderizada.</li>
+<li>O sistema deve exibir um <em>Empty State</em> solicitando alteração dos filtros e disponibilizar um botão de "Limpar Filtros" (reset de estado).</li>
+</ul>
+<hr />
+<h2 id="epico-4-detalhamento-legislativo">Épico 4: Detalhamento Legislativo</h2>
+<p><strong>Funcionalidades:</strong> Exibição completa de dados de uma PL, histórico, download e compartilhamento.</p>
+<h3 id="1-roteamento-e-carregamento-de-dados">1. Roteamento e Carregamento de Dados</h3>
+<ul>
+<li>A página deve ser acessada via rota dinâmica (<code>/pl/:id</code>).</li>
+<li>O front-end deve extrair o ID da URL e disparar uma requisição GET para buscar os dados agregados da proposição.</li>
+</ul>
+<h3 id="2-exibicao-de-metadados">2. Exibição de Metadados</h3>
+<ul>
+<li>A interface deve renderizar os textos da "Ementa Completa" e "Explicação da Ementa".</li>
+<li>Deve identificar claramente o Autor e o Relator.</li>
+<li>O status atual da tramitação deve ser exibido em destaque (badge visual).</li>
+</ul>
+<h3 id="3-linha-do-tempo-do-historico">3. Linha do Tempo do Histórico</h3>
+<ul>
+<li>O front-end deve renderizar uma <em>Timeline</em> mapeando o array de tramitação retornado pela API, ordenado de forma cronológica.</li>
+</ul>
+<h3 id="4-download-do-pdf">4. Download do PDF</h3>
+<ul>
+<li>A página deve conter um botão "Baixar Documento Inicial" ou "Ver PDF".</li>
+<li>O clique deve acionar o download ou abrir o PDF em nova aba via URL fornecida pela API.</li>
+</ul>
+<h3 id="5-compartilhamento">5. Compartilhamento</h3>
+<ul>
+<li>A interface deve incluir um botão "Compartilhar".</li>
+<li>O sistema deve copiar o link atual para a área de transferência (Clipboard API) ou acionar o compartilhamento nativo do dispositivo (Web Share API) com feedback de sucesso.</li>
+</ul>
+<h3 id="6-navegacao-contextual">6. Navegação Contextual</h3>
+<ul>
+<li>A página deve incluir um link rápido para a tela de Dashboards, mantendo o fluxo analítico do usuário.</li>
+</ul>
+<h3 id="7-tratamento-de-falha-critica">7. Tratamento de Falha Crítica</h3>
+<ul>
+<li>Se a API não responder (timeout) ou retornar erro 500, a interface não deve ficar em loop de carregamento.</li>
+<li>O front-end deve exibir um <em>Error State</em> em tela cheia informando a indisponibilidade e oferecendo um botão "Tentar Novamente".</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.instant", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
