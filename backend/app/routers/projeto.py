@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import select, func, and_, or_, cast, String, Integer, null, Boolean
+from sqlalchemy import select, func, and_, or_, cast, String, Integer, null, case
 from app.database import get_db
 from app.models import (
     PlCamara, PlSenado, Parlamentar, AutoriaCamara, AutoriaSenado,
     TramitacaoCamara, TramitacaoSenado
 )
-from app.services.normalizer import normalizar_status_camara, normalizar_status_senado
 import math
+import re  # <-- IMPORTANTE: Adicionado para usar regex na rota de filtros
 
 router = APIRouter(prefix="/api/projetos-de-lei")
 
@@ -23,7 +23,7 @@ def listar_projetos(
     ano: int = None,
     ordenar: str = Query("recentes")
 ):
-    # 1. Subqueries para a última atualização (Otimização de Performance)
+    # 1. Subqueries para a última atualização
     subq_camara = (
         select(TramitacaoCamara.id_pl, func.max(TramitacaoCamara.data_tramitacao).label("ultima_atualizacao"))
         .group_by(TramitacaoCamara.id_pl)
@@ -36,81 +36,126 @@ def listar_projetos(
         .subquery()
     )
 
+    # 1.1 Subqueries para unificar autores
+    subq_autor_camara = (
+        select(
+            AutoriaCamara.id_pl,
+            func.min(Parlamentar.nome_eleitoral).label("autor_nome"),
+            func.min(Parlamentar.sigla_partido).label("autor_partido"),
+            func.min(Parlamentar.sigla_uf).label("autor_uf")
+        )
+        .join(Parlamentar, Parlamentar.id == AutoriaCamara.id_parlamentar)
+        .group_by(AutoriaCamara.id_pl)
+        .subquery()
+    )
+
+    subq_autor_senado = (
+        select(
+            AutoriaSenado.id_pl,
+            func.min(Parlamentar.nome_eleitoral).label("autor_nome"),
+            func.min(Parlamentar.sigla_partido).label("autor_partido"),
+            func.min(Parlamentar.sigla_uf).label("autor_uf")
+        )
+        .join(Parlamentar, Parlamentar.id == AutoriaSenado.id_parlamentar)
+        .group_by(AutoriaSenado.id_pl)
+        .subquery()
+    )
+
     # 2. Query Base da Câmara
+    status_camara = case(
+        (PlCamara.descricao_situacao == "Transformado em Norma Jurídica", "aprovado"),
+        (PlCamara.descricao_situacao == "Arquivada", "arquivado"),
+        else_="em_tramitacao"
+    ).label("status_normalizado")
+
     query_camara = (
         select(
             func.cast(PlCamara.id, String).label("raw_id"),
             func.cast(PlCamara.numero, String).label("numero"),
-            PlCamara.ano.label("ano"), # Geralmente já é Integer no banco
+            func.cast(PlCamara.ano, String).label("ano"), 
             func.cast("CÂMARA DOS DEPUTADOS", String).label("casa"),
             func.cast(PlCamara.descricao_situacao, String).label("raw_status"),
             PlCamara.ementa.label("ementa"),
-            Parlamentar.nome_eleitoral.label("autor_nome"),
-            Parlamentar.sigla_partido.label("autor_partido"),
-            Parlamentar.sigla_uf.label("autor_uf"),
+            subq_autor_camara.c.autor_nome,
+            subq_autor_camara.c.autor_partido,
+            subq_autor_camara.c.autor_uf,
             func.coalesce(subq_camara.c.ultima_atualizacao, PlCamara.updated_at).label("ultima_atualizacao"),
-            # Campos extras para manter compatibilidade no union caso necessário
-            func.cast(null(), String).label("senado_sigla_deliberacao"),
-            func.cast(null(), Boolean).label("senado_tramitando")
+            status_camara
         )
         .outerjoin(subq_camara, subq_camara.c.id_pl == PlCamara.id)
-        .outerjoin(AutoriaCamara, AutoriaCamara.id_pl == PlCamara.id)
-        .outerjoin(Parlamentar, Parlamentar.id == AutoriaCamara.id_parlamentar)
+        .outerjoin(subq_autor_camara, subq_autor_camara.c.id_pl == PlCamara.id)
     )
 
-    # 3. Query Base do Senado
-    numero_senado = func.split_part(func.replace(PlSenado.identificacao, "PL ", ""), "/", 1)
-    ano_senado = func.split_part(func.replace(PlSenado.identificacao, "PL ", ""), "/", 2)
+    # 3. Query Base do Senado (EXTRAÇÃO ROBUSTA COM REGEX)
+    # Extrai o grupo de dígitos imediatamente antes da barra: ex "PL 1029/2026 (Sub)" -> "1029"
+    numero_senado = func.substring(PlSenado.identificacao, '([0-9]+)/')
+    
+    # Extrai exatamente 4 dígitos imediatamente após a barra: ex "PL 1029/2026 (Sub)" -> "2026"
+    ano_senado = func.substring(PlSenado.identificacao, '/([0-9]{4})')
+
+    status_senado = case(
+        (PlSenado.sigla_tipo_deliberacao.in_(["APROVADA_EM_COMISSAO_TERMINATIVA", "SAN"]), "aprovado"),
+        (PlSenado.sigla_tipo_deliberacao.in_(["RETIRADO_PELO_AUTOR", "ARQUIVADO_FIM_LEGISLATURA","PREJUDICADO"]), "arquivado"),
+        else_="em_tramitacao"
+    ).label("status_normalizado")
 
     query_senado = (
         select(
             func.cast(PlSenado.id, String).label("raw_id"),
-            func.cast(numero_senado, String).label("numero"),
-            func.cast(ano_senado, Integer).label("ano"), # Forçando Integer para bater com a Câmara
+            func.cast(func.nullif(numero_senado, ''), String).label("numero"),
+            func.cast(func.nullif(ano_senado, ''), String).label("ano"), 
             func.cast("SENADO FEDERAL", String).label("casa"),
-            func.cast(null(), String).label("raw_status"), # null() ao invés de None solto
+            func.cast(null(), String).label("raw_status"), 
             PlSenado.ementa.label("ementa"),
-            Parlamentar.nome_eleitoral.label("autor_nome"),
-            Parlamentar.sigla_partido.label("autor_partido"),
-            Parlamentar.sigla_uf.label("autor_uf"),
+            subq_autor_senado.c.autor_nome,
+            subq_autor_senado.c.autor_partido,
+            subq_autor_senado.c.autor_uf,
             func.coalesce(subq_senado.c.ultima_atualizacao, PlSenado.updated_at).label("ultima_atualizacao"),
-            func.cast(PlSenado.sigla_tipo_deliberacao, String).label("senado_sigla_deliberacao"),
-            func.cast(PlSenado.tramitando, Boolean).label("senado_tramitando")
+            status_senado
         )
         .outerjoin(subq_senado, subq_senado.c.id_pl == PlSenado.id)
-        .outerjoin(AutoriaSenado, AutoriaSenado.id_pl == PlSenado.id)
-        .outerjoin(Parlamentar, Parlamentar.id == AutoriaSenado.id_parlamentar)
+        .outerjoin(subq_autor_senado, subq_autor_senado.c.id_pl == PlSenado.id)
     )
 
-    # 4. UNION ALL
-    query_unificada = query_camara.union_all(query_senado).subquery()
+    # 4. UNION ALL e Deduplicação
+    union_subq = query_camara.union_all(query_senado).subquery()
     
-    final_query = select(query_unificada)
+    rn_col = func.row_number().over(
+        partition_by=(union_subq.c.numero, union_subq.c.ano),
+        order_by=union_subq.c.ultima_atualizacao.desc().nullslast()
+    ).label('rn')
+    
+    dedup_subq = select(union_subq, rn_col).subquery()
+    
+    final_query = select(dedup_subq).where(dedup_subq.c.rn == 1)
 
     # 5. Aplicação de Filtros
     if keyword:
         termo = f"%{keyword}%"
         final_query = final_query.where(
             or_(
-                query_unificada.c.ementa.ilike(termo),
-                query_unificada.c.numero.ilike(termo)
+                dedup_subq.c.ementa.ilike(termo),
+                dedup_subq.c.numero.ilike(termo)
             )
         )
     if partido:
-        final_query = final_query.where(query_unificada.c.autor_partido == partido)
+        final_query = final_query.where(dedup_subq.c.autor_partido == partido)
     if uf:
-        final_query = final_query.where(query_unificada.c.autor_uf == uf)
+        final_query = final_query.where(dedup_subq.c.autor_uf == uf)
     if ano:
-        final_query = final_query.where(query_unificada.c.ano == ano)
+        final_query = final_query.where(dedup_subq.c.ano == str(ano))
+    if status:
+        final_query = final_query.where(dedup_subq.c.status_normalizado == status)
 
     # 6. Ordenação
     if ordenar == "recentes":
-        final_query = final_query.order_by(query_unificada.c.ultima_atualizacao.desc())
+        final_query = final_query.order_by(dedup_subq.c.ultima_atualizacao.desc())
     elif ordenar == "antigos":
-        final_query = final_query.order_by(query_unificada.c.ultima_atualizacao.asc())
+        final_query = final_query.order_by(dedup_subq.c.ultima_atualizacao.asc())
     elif ordenar == "numero_asc":
-        # Fazendo cast para Integer apenas na hora de ordenar, para o "2" vir antes do "10"
-        final_query = final_query.order_by(cast(query_unificada.c.numero, Integer).asc())
+        # Continua usando regex para garantir a conversão limpa em Inteiro na ordenação
+        numero_limpo = func.regexp_replace(dedup_subq.c.numero, '[^0-9]', '', 'g')
+        final_query = final_query.order_by(cast(func.nullif(numero_limpo, ''), Integer).asc())
 
     # 7. Execução e Paginação
     total_items = db.execute(select(func.count()).select_from(final_query.subquery())).scalar()
@@ -123,20 +168,12 @@ def listar_projetos(
     # 8. Montagem do Payload de Resposta
     projetos = []
     for row in resultados:
-        if row.casa == "CÂMARA DOS DEPUTADOS":
-            status_final = normalizar_status_camara(row.raw_status)
-        else:
-            status_final = normalizar_status_senado(row.senado_sigla_deliberacao, row.senado_tramitando)
-            
-        if status and status_final != status:
-            continue
-            
         projetos.append({
             "id": f"pl-{row.numero}-{row.ano}",
-            "numero": str(row.numero),
-            "ano": int(row.ano) if row.ano else None,
+            "numero": str(row.numero) if row.numero else None,
+            "ano": int(row.ano) if row.ano and str(row.ano).isdigit() else None, 
             "casa": row.casa,
-            "status": status_final,
+            "status": row.status_normalizado,
             "autor_nome": row.autor_nome,
             "autor_partido": row.autor_partido,
             "autor_uf": row.autor_uf,
@@ -144,47 +181,40 @@ def listar_projetos(
             "ultima_atualizacao": row.ultima_atualizacao.strftime("%Y-%m-%d") if row.ultima_atualizacao else None
         })
 
-    if status:
-        total_items = len(projetos)
-
     return {
         "total": total_items,
         "page": page,
         "per_page": per_page,
-        "total_pages": math.ceil(total_items / per_page) if total_items else 0,
+        "total_pages": math.ceil(total_items / per_page) if total_items > 0 else 0,
         "projetos": projetos
     }
 
 @router.get("/filtros")
 def listar_filtros(db: Session = Depends(get_db)):
-    # Busca Partidos (excluindo nulos e strings vazias)
     partidos_query = db.query(Parlamentar.sigla_partido).filter(
         Parlamentar.sigla_partido.isnot(None), 
         Parlamentar.sigla_partido != ""
     ).distinct().order_by(Parlamentar.sigla_partido).all()
     
-    # Busca UFs (excluindo nulos e strings vazias)
     ufs_query = db.query(Parlamentar.sigla_uf).filter(
         Parlamentar.sigla_uf.isnot(None), 
         Parlamentar.sigla_uf != ""
     ).distinct().order_by(Parlamentar.sigla_uf).all()
     
-    # Busca Anos (Câmara - Campo Inteiro)
     anos_camara = db.query(PlCamara.ano).filter(PlCamara.ano.isnot(None)).distinct().all()
     anos_set = {ano[0] for ano in anos_camara}
     
-    # Busca Anos (Senado - Extraindo da string 'PL 648/2019')
     identificacoes_senado = db.query(PlSenado.identificacao).filter(PlSenado.identificacao.isnot(None)).all()
+    
     for id_senado in identificacoes_senado:
-        texto = id_senado[0]  # Ex: "PL 648/2019"
-        if "/" in texto:
-            try:
-                ano_str = texto.split("/")[-1].strip()
-                anos_set.add(int(ano_str))
-            except ValueError:
-                continue
+        texto = id_senado[0] 
+        if texto and "/" in texto:
+            # EXTRAÇÃO ROBUSTA COM REGEX NO PYTHON
+            # Busca exatamente a barra seguida de 4 dígitos, ignorando o resto
+            match = re.search(r'/([0-9]{4})', texto)
+            if match:
+                anos_set.add(int(match.group(1)))
                 
-    # Ordena a lista de anos gerada
     anos_lista = sorted(list(anos_set))
     
     return {
