@@ -3,18 +3,53 @@ site_description: Documentação do projeto, com os nossos estudos, conteúdos d
 
 theme:
   name: material
+  custom_dir: overrides
+
   palette:
-    primary: indigo
-    accent: blue
+    scheme: slate
+    primary: deep purple
+    accent: deep purple
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.instant
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
 
 nav:
   - Home: index.md
+
   - Arquitetura:
-    - Arquitetura Técnica: Arquitetura/Arquitetura_Tecnica.md
+      - Arquitetura Técnica: Arquitetura/Arquitetura_Tecnica.md
+
   - Requisitos:
-    - Visão geral: Requisitos/Visão de produto.md
+      - Visão geral: Requisitos/Visão de produto.md
+      - Critérios de Aceitação: Requisitos/Criterios de aceitacao.md
+
   - ATAS Reunião:
-    - Reunião01: ATAS Reunião/Ata26_03.md
-    - Reunião02: ATAS Reunião/Ata30_03.md
-    - Reunião03: ATAS Reunião/ATA reunião15_04.md
-  - Métricas de Produtividade: scrum/index.html
+      - Reunião01: ATAS Reunião/Ata26_03.md
+      - Reunião02: ATAS Reunião/Ata30_03.md
+      - Reunião03: ATAS Reunião/ATA reunião15_04.md
+      - Reunião04: ATAS Reunião/Ata29_04.md
+      - Reunião05: ATAS Reunião/Ata06_05.md
+      - Reunião06: ATAS Reunião/Ata13_05.md
+
+  - Estudos:
+      - Estudo00: Estudos/Sprint00.md
+      - Estudo01: Estudos/Sprint01.md
+      - Estudo02: Estudos/Sprint02.md
+      - Estudo03: Estudos/Sprint03.md
+      - Estudo04: Estudos/Sprint04.md
+
+  - Métricas de Produtividade:
+      - Dashboard: scrum/index.html
