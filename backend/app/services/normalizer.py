@@ -235,7 +235,7 @@ def upsert_autores_senado(session: Session, id_pl: int, detalhe_raw: Any) -> Non
                 casa="Senado",
                 nome_eleitoral=parl_detalhe.get("NomeParlamentar") or parl_info.get("autor") or parl_info.get("nome") or "Desconhecido",
                 sigla_partido=parl_detalhe.get("SiglaPartidoParlamentar") or parl_info.get("siglaPartido") or "",
-                sigla_uf=parl_detalhe.get("UfParlamentar") or parl_info.get("UfParlamentar") or "",
+                sigla_uf=parl_detalhe.get("uf") or parl_info.get("uf") or "",
                 sexo=limpar_sexo(raw_sexo),                                      # Correção aplicada
                 url_foto=parl_detalhe.get("UrlFotoParlamentar") or "",
                 status_mandato=parl_detalhe.get("DescricaoParticipacao") or "Exercício"

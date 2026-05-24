@@ -26,7 +26,6 @@ PALAVRAS_CHAVE = [
 
 SIGLAS_TIPO = ["PL", "PLP"]
 
-# Dicionário de Cache em memória para não repetir requisições
 _cache_deputados = {}
 
 def _get(path: str, params: Optional[dict] = None) -> Optional[dict[str, Any]]:
@@ -46,9 +45,10 @@ def listar_proposicoes(
 ) -> Iterator[dict[str, Any]]:
     pagina = 1
     while True:
+        # Parâmetros atualizados para a especificação v2 da Câmara
         params: dict[str, Any] = {
             "siglaTipo": sigla_tipo,
-            "keywords": keyword,
+            "keywords": PALAVRAS_CHAVE,
             "itens": ITENS_POR_PAGINA,
             "pagina": pagina,
             "ordem": "ASC",
@@ -92,7 +92,6 @@ def buscar_tramitacoes(id_proposicao: int) -> list[dict[str, Any]]:
     return raw.get("dados", [])
 
 def buscar_deputado(id_deputado: int) -> Optional[dict[str, Any]]:
-    """Busca detalhes de um deputado específico, usando cache em memória."""
     id_str = str(id_deputado)
     if id_str in _cache_deputados:
         return _cache_deputados[id_str]
