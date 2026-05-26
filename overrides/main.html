@@ -3,7 +3,9 @@
 {% block styles %}
 {{ super() }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+  rel="stylesheet">
 {% if page.is_homepage %}
 <style>
   /* Esconde sidebar e tabs do Material apenas na HOME */
@@ -13,11 +15,32 @@
   .md-footer {
     display: none !important;
   }
-  .md-header { display: none !important; }
-  .md-main { margin: 0 !important; padding: 0 !important; }
-  .md-main__inner { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
-  .md-content { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
-  .md-content__inner { margin: 0 !important; padding: 0 !important; }
+
+  .md-header {
+    display: none !important;
+  }
+
+  .md-main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .md-main__inner {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .md-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .md-content__inner {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 </style>
 <style>
   :root {
@@ -36,13 +59,17 @@
     --text-primary: #f3f0ff;
     --text-secondary: #c4b5fd;
     --text-muted: #7c6fa8;
-    --border: rgba(139,92,246,0.18);
-    --border-hover: rgba(139,92,246,0.4);
+    --border: rgba(139, 92, 246, 0.18);
+    --border-hover: rgba(139, 92, 246, 0.4);
     --sidebar-w: 240px;
     --header-h: 56px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -56,12 +83,17 @@
 
   /* ── HEADER ── */
   header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
     height: var(--header-h);
-    background: rgba(10,6,24,0.92);
+    background: rgba(10, 6, 24, 0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    display: flex; align-items: center;
+    display: flex;
+    align-items: center;
     padding: 0 1.25rem 0 calc(var(--sidebar-w) + 1.25rem);
     gap: 1rem;
   }
@@ -75,7 +107,9 @@
   }
 
   .header-btn {
-    display: flex; align-items: center; gap: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     padding: 6px 14px;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -87,30 +121,47 @@
     transition: all .2s;
     text-decoration: none;
   }
-  .header-btn:hover { background: var(--bg-hover); border-color: var(--border-hover); color: var(--text-primary); }
+
+  .header-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+  }
 
   /* ── SIDEBAR ── */
   aside {
-    position: fixed; top: 0; left: 0; bottom: 0; z-index: 101;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 101;
     width: var(--sidebar-w);
     background: var(--bg-dark);
     border-right: 1px solid var(--border);
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
   }
 
   .logo-area {
-    display: flex; align-items: center; gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 14px 16px;
     border-bottom: 1px solid var(--border);
     height: var(--header-h);
   }
 
   .logo-icon {
-    width: 32px; height: 32px; border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
     background: linear-gradient(135deg, #7c3aed, #a855f7);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
   }
 
   .logo-text {
@@ -128,12 +179,19 @@
     letter-spacing: 0.05em;
   }
 
-  nav { flex: 1; padding: 12px 8px; }
+  nav {
+    flex: 1;
+    padding: 12px 8px;
+  }
 
-  .nav-section { margin-bottom: 4px; }
+  .nav-section {
+    margin-bottom: 4px;
+  }
 
   .nav-item {
-    display: flex; align-items: center; gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 8px 10px;
     border-radius: 8px;
     font-size: 13.5px;
@@ -143,15 +201,34 @@
     text-decoration: none;
     position: relative;
   }
-  .nav-item:hover { background: var(--bg-hover); color: var(--text-secondary); }
-  .nav-item.active { background: var(--accent-dim); color: var(--accent-bright); font-weight: 500; }
+
+  .nav-item:hover {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+  }
+
+  .nav-item.active {
+    background: var(--accent-dim);
+    color: var(--accent-bright);
+    font-weight: 500;
+  }
+
   .nav-item.active::before {
-    content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-    width: 3px; height: 60%; background: var(--accent); border-radius: 0 2px 2px 0;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
   }
 
   .nav-group-header {
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 7px 10px;
     font-size: 12px;
     font-weight: 600;
@@ -162,18 +239,39 @@
     border-radius: 8px;
     transition: background .15s;
   }
-  .nav-group-header:hover { background: var(--bg-hover); }
-  .nav-group-header svg { transition: transform .2s; }
-  .nav-group-header.open svg { transform: rotate(180deg); }
 
-  .nav-sub { padding-left: 12px; overflow: hidden; }
-  .nav-sub .nav-item { font-size: 13px; }
+  .nav-group-header:hover {
+    background: var(--bg-hover);
+  }
 
-  .nav-icon { width: 18px; text-align: center; font-size: 15px; opacity: 0.9; flex-shrink: 0; }
+  .nav-group-header svg {
+    transition: transform .2s;
+  }
+
+  .nav-group-header.open svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-sub {
+    padding-left: 12px;
+    overflow: hidden;
+  }
+
+  .nav-sub .nav-item {
+    font-size: 13px;
+  }
+
+  .nav-icon {
+    width: 18px;
+    text-align: center;
+    font-size: 15px;
+    opacity: 0.9;
+    flex-shrink: 0;
+  }
 
   .nav-badge {
     margin-left: auto;
-    background: rgba(139,92,246,0.2);
+    background: rgba(139, 92, 246, 0.2);
     color: var(--accent-soft);
     font-size: 11px;
     padding: 1px 7px;
@@ -187,7 +285,13 @@
     font-size: 12px;
     color: var(--text-muted);
   }
-  .sidebar-footer strong { color: var(--text-secondary); display: block; margin-bottom: 4px; font-size: 12px; }
+
+  .sidebar-footer strong {
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
 
   /* ── MAIN ── */
   main {
@@ -211,26 +315,41 @@
     position: relative;
     overflow: hidden;
   }
+
   .hero::before {
     content: '';
-    position: absolute; right: -60px; top: -60px;
-    width: 320px; height: 320px;
-    background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%);
     pointer-events: none;
   }
 
-  .hero-content { position: relative; z-index: 1; max-width: 520px; }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+  }
 
   .hero-logo-row {
-    display: flex; align-items: center; gap: 16px; margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 1rem;
   }
 
   .hero-logo-icon {
-    width: 56px; height: 56px; border-radius: 14px;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
     background: linear-gradient(135deg, #6d28d9, #a855f7);
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 28px;
-    box-shadow: 0 8px 24px rgba(139,92,246,0.3);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
   }
 
   .hero-title {
@@ -239,7 +358,10 @@
     font-weight: 800;
     line-height: 1;
   }
-  .hero-title span { color: var(--accent-bright); }
+
+  .hero-title span {
+    color: var(--accent-bright);
+  }
 
   .hero-desc {
     font-size: 0.92rem;
@@ -249,10 +371,16 @@
     max-width: 440px;
   }
 
-  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
 
   .btn-primary {
-    display: flex; align-items: center; gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px 22px;
     background: var(--accent);
     color: #fff;
@@ -264,12 +392,18 @@
     cursor: pointer;
     transition: all .2s;
     text-decoration: none;
-    box-shadow: 0 4px 16px rgba(139,92,246,0.35);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
   }
-  .btn-primary:hover { background: #7c3aed; transform: translateY(-1px); }
+
+  .btn-primary:hover {
+    background: #7c3aed;
+    transform: translateY(-1px);
+  }
 
   .btn-outline {
-    display: flex; align-items: center; gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px 22px;
     background: transparent;
     color: var(--text-secondary);
@@ -282,26 +416,61 @@
     transition: all .2s;
     text-decoration: none;
   }
-  .btn-outline:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+  .btn-outline:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
 
   .hero-visual {
     flex-shrink: 0;
-    position: relative; z-index: 1;
+    position: relative;
+    z-index: 1;
   }
 
   .hero-map-card {
-    background: rgba(22,13,46,0.8);
+    background: rgba(22, 13, 46, 0.8);
     border: 1px solid var(--border-hover);
     border-radius: 16px;
     padding: 1.25rem 1.5rem;
     width: 240px;
     backdrop-filter: blur(8px);
   }
-  .hero-map-card .label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .hero-map-stat { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent-bright); }
-  .hero-map-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-  .hero-bar { height: 4px; background: rgba(139,92,246,0.2); border-radius: 4px; margin-top: 12px; overflow: hidden; }
-  .hero-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-bright)); border-radius: 4px; }
+
+  .hero-map-card .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-map-stat {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-bright);
+  }
+
+  .hero-map-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .hero-bar {
+    height: 4px;
+    background: rgba(139, 92, 246, 0.2);
+    border-radius: 4px;
+    margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .hero-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+    border-radius: 4px;
+  }
 
   /* ── SECTION TITLE ── */
   .section-title {
@@ -310,11 +479,15 @@
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
+
   .section-title::after {
     content: '';
-    flex: 1; height: 1px;
+    flex: 1;
+    height: 1px;
     background: linear-gradient(90deg, var(--border), transparent);
   }
 
@@ -334,20 +507,27 @@
     cursor: pointer;
     transition: all .2s;
     text-decoration: none;
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
+
   .doc-card:hover {
     border-color: var(--border-hover);
     background: var(--bg-card2);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139,92,246,0.12);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.12);
   }
 
   .doc-card-icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    background: rgba(139,92,246,0.15);
-    border: 1px solid rgba(139,92,246,0.25);
-    display: flex; align-items: center; justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 20px;
   }
 
@@ -357,26 +537,34 @@
     font-weight: 600;
     color: var(--text-primary);
   }
+
   .doc-card-desc {
     font-size: 12.5px;
     color: var(--text-muted);
     line-height: 1.55;
   }
+
   .doc-card-link {
     font-size: 12px;
     color: var(--accent-bright);
-    display: flex; align-items: center; gap: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     margin-top: auto;
   }
 
   /* ── TECH CHIPS ── */
   .tech-row {
-    display: flex; flex-wrap: wrap; gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 2rem;
   }
 
   .tech-chip {
-    display: flex; align-items: center; gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 16px;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -386,8 +574,18 @@
     transition: all .2s;
     cursor: default;
   }
-  .tech-chip:hover { border-color: var(--border-hover); color: var(--text-primary); background: var(--bg-card2); }
-  .tech-chip-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  .tech-chip:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+    background: var(--bg-card2);
+  }
+
+  .tech-chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
 
   /* ── BOTTOM GRID ── */
   .bottom-grid {
@@ -406,21 +604,31 @@
   }
 
   .flow-steps {
-    display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
     margin-top: 1rem;
   }
 
   .flow-step {
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     flex: 1;
     min-width: 100px;
   }
 
   .flow-step-icon {
-    width: 52px; height: 52px; border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
     border: 1px solid var(--border-hover);
-    background: rgba(139,92,246,0.08);
-    display: flex; align-items: center; justify-content: center;
+    background: rgba(139, 92, 246, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 22px;
   }
 
@@ -447,6 +655,7 @@
     border-radius: 13px;
     padding: 1.5rem;
   }
+
   .about-card h3 {
     font-family: 'Syne', sans-serif;
     font-size: 1rem;
@@ -454,20 +663,27 @@
     margin-bottom: 0.75rem;
     color: var(--text-primary);
   }
+
   .about-card p {
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.65;
     margin-bottom: 1rem;
   }
+
   .about-link {
     font-size: 13px;
     color: var(--accent-bright);
     text-decoration: none;
-    display: flex; align-items: center; gap: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-weight: 500;
   }
-  .about-link:hover { color: var(--accent-soft); }
+
+  .about-link:hover {
+    color: var(--accent-soft);
+  }
 
   /* ── STAT CARDS ── */
   .stats-row {
@@ -483,9 +699,27 @@
     border-radius: 12px;
     padding: 1rem 1.25rem;
   }
-  .stat-label { font-size: 11.5px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .stat-value { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-bright); }
-  .stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .stat-label {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-bright);
+  }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 
   /* ── FOOTER ── */
   footer {
@@ -494,40 +728,100 @@
     border-top: 1px solid var(--border);
     font-size: 12px;
     color: var(--text-muted);
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  .hero { animation: fadeUp .5s ease both; }
-  .stats-row { animation: fadeUp .5s .1s ease both; }
-  .card-grid { animation: fadeUp .5s .15s ease both; }
-  .tech-row { animation: fadeUp .5s .2s ease both; }
-  .bottom-grid { animation: fadeUp .5s .25s ease both; }
+  .hero {
+    animation: fadeUp .5s ease both;
+  }
+
+  .stats-row {
+    animation: fadeUp .5s .1s ease both;
+  }
+
+  .card-grid {
+    animation: fadeUp .5s .15s ease both;
+  }
+
+  .tech-row {
+    animation: fadeUp .5s .2s ease both;
+  }
+
+  .bottom-grid {
+    animation: fadeUp .5s .25s ease both;
+  }
 
   /* scrollbar */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 4px; }
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent-dim);
+    border-radius: 4px;
+  }
 
   @media (max-width: 900px) {
-    .bottom-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .hero { flex-direction: column; }
-    .hero-visual { display: none; }
-    .hero-title { font-size: 1.8rem; }
+    .bottom-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero {
+      flex-direction: column;
+    }
+
+    .hero-visual {
+      display: none;
+    }
+
+    .hero-title {
+      font-size: 1.8rem;
+    }
   }
 
   @media (max-width: 680px) {
-    :root { --sidebar-w: 0px; }
-    aside { transform: translateX(-100%); }
-    header { padding-left: 1.25rem; }
-    main { padding: 1.25rem; }
-    footer { margin-left: 0; }
+    :root {
+      --sidebar-w: 0px;
+    }
+
+    aside {
+      transform: translateX(-100%);
+    }
+
+    header {
+      padding-left: 1.25rem;
+    }
+
+    main {
+      padding: 1.25rem;
+    }
+
+    footer {
+      margin-left: 0;
+    }
   }
 </style>
 {% endif %}
@@ -555,19 +849,25 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>Épicos</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-epicos">
-        <a href="#epicos" class="nav-item" onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
+        <a href="#epicos" class="nav-item"
+          onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">🏠</span> Home (Landing Page)
         </a>
-        <a href="#epicos" class="nav-item" onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
+        <a href="#epicos" class="nav-item"
+          onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">📊</span> Dashboards
         </a>
-        <a href="#epicos" class="nav-item" onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
+        <a href="#epicos" class="nav-item"
+          onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">🔍</span> Consulta de Proposições
         </a>
-        <a href="#epicos" class="nav-item" onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
+        <a href="#epicos" class="nav-item"
+          onclick="setActive(this); document.getElementById('epicos').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">📋</span> Detalhamento Legislativo
         </a>
       </div>
@@ -576,7 +876,9 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>Arquitetura</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-arq">
         <a href="Arquitetura/Arquitetura_Tecnica/" class="nav-item" onclick="setActive(this)">
@@ -588,7 +890,9 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>Requisitos</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-req">
         <a href="Requisitos/Visão de produto/" class="nav-item" onclick="setActive(this)">
@@ -603,7 +907,9 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>ATAS Reunião</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-atas">
         <a href="ATAS Reunião/Ata26_03/" class="nav-item" onclick="setActive(this)">
@@ -630,16 +936,21 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>Metodologia</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-met2">
-        <a href="#metodologia" class="nav-item" onclick="setActive(this); document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">
+        <a href="#metodologia" class="nav-item"
+          onclick="setActive(this); document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">🔄</span> Sprints
         </a>
-        <a href="#metodologia" class="nav-item" onclick="setActive(this); document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">
+        <a href="#metodologia" class="nav-item"
+          onclick="setActive(this); document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">🌿</span> GitFlow
         </a>
-        <a href="#metodologia" class="nav-item" onclick="setActive(this); document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">
+        <a href="#metodologia" class="nav-item"
+          onclick="setActive(this); document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">
           <span class="nav-icon">🤖</span> CI/CD
         </a>
       </div>
@@ -648,7 +959,9 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>Métricas de Produtividade</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-met">
         <a href="scrum/" class="nav-item" onclick="setActive(this)">
@@ -661,24 +974,97 @@
     <div class="nav-section">
       <div class="nav-group-header open" onclick="toggleGroup(this)">
         <span>Estudos</span>
-        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
       <div class="nav-sub" id="sub-estudos">
-        <a href="Estudos/Sprint00/" class="nav-item" onclick="setActive(this)">
-          <span class="nav-icon">📚</span> Sprint 00
-        </a>
-        <a href="Estudos/Sprint01/" class="nav-item" onclick="setActive(this)">
-          <span class="nav-icon">📚</span> Sprint 01
-        </a>
-        <a href="Estudos/Sprint02/" class="nav-item" onclick="setActive(this)">
-          <span class="nav-icon">📚</span> Sprint 02
-        </a>
-        <a href="Estudos/Sprint03/" class="nav-item" onclick="setActive(this)">
-          <span class="nav-icon">📚</span> Sprint 03
-        </a>
-        <a href="Estudos/Sprint04/" class="nav-item" onclick="setActive(this)">
-          <span class="nav-icon">📚</span> Sprint 04
-        </a>
+
+        <div class="nav-group-header open" onclick="toggleGroup(this)" style="font-size:12px; padding:6px 10px;">
+          <span>Sprint 00</span>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="nav-sub" id="sub-sprint00">
+          <a href="Estudos/Sprint00/arquiteturaSoftware/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Arquitetura de Software
+          </a>
+          <a href="Estudos/Sprint00/Estudo_Requisitos_de_software/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Requisitos de Software
+          </a>
+          <a href="Estudos/Sprint00/git-cheat-sheet/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Git Cheat Sheet
+          </a>
+          <a href="Estudos/Sprint00/GuiaRapido_GitGitHub/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Guia Rápido Git/GitHub
+          </a>
+          <a href="Estudos/Sprint00/_Metodologias.Ageis/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Metodologias Ágeis
+          </a>
+        </div>
+
+        <div class="nav-group-header open" onclick="toggleGroup(this)" style="font-size:12px; padding:6px 10px;">
+          <span>Sprint 01</span>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="nav-sub" id="sub-sprint01">
+          <a href="Estudos/Sprint01/Docker/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Docker
+          </a>
+        </div>
+
+        <div class="nav-group-header open" onclick="toggleGroup(this)" style="font-size:12px; padding:6px 10px;">
+          <span>Sprint 02</span>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="nav-sub" id="sub-sprint02">
+          <a href="Estudos/Sprint02/postgreSQL/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> PostgreSQL
+          </a>
+          <a href="Estudos/Sprint02/prototipoFigma/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Protótipo Figma
+          </a>
+        </div>
+
+        <div class="nav-group-header open" onclick="toggleGroup(this)" style="font-size:12px; padding:6px 10px;">
+          <span>Sprint 03</span>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="nav-sub" id="sub-sprint03">
+          <a href="Estudos/Sprint03/persona/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Persona
+          </a>
+        </div>
+
+        <div class="nav-group-header open" onclick="toggleGroup(this)" style="font-size:12px; padding:6px 10px;">
+          <span>Sprint 04</span>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div class="nav-sub" id="sub-sprint04">
+          <a href="Estudos/Sprint04/Estudo API da Câmara do Senado/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> API Câmara/Senado
+          </a>
+          <a href="Estudos/Sprint04/Pesquisa Legislativa - Monitoramento de PLs (API do Senado)/" class="nav-item"
+            onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Pesquisa Legislativa
+          </a>
+          <a href="Estudos/Sprint04/StoryMap-figma/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Story Map Figma
+          </a>
+          <a href="Estudos/Sprint04/Wireframe/" class="nav-item" onclick="setActive(this)">
+            <span class="nav-icon">📄</span> Wireframe
+          </a>
+        </div>
+
       </div>
     </div>
   </nav>
@@ -705,18 +1091,24 @@
         <div class="hero-logo-icon">🌺</div>
         <div>
           <div style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:800; line-height:1;">MAPA</div>
-          <div style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:800; line-height:1; color:var(--accent-bright);">L.I.L.A.S</div>
+          <div
+            style="font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:800; line-height:1; color:var(--accent-bright);">
+            L.I.L.A.S</div>
         </div>
       </div>
       <p class="hero-desc">
-        Plataforma para monitoramento de dados legislativos relacionados ao feminicídio. Mapeando proposições da Câmara e do Senado em painéis visuais interativos para apoiar a transparência e accountability.
+        Plataforma para monitoramento de dados legislativos relacionados ao feminicídio. Mapeando proposições da Câmara
+        e do Senado em painéis visuais interativos para apoiar a transparência e accountability.
       </p>
       <div class="hero-btns">
         <a href="Arquitetura/Arquitetura_Tecnica/" class="btn-primary">
           📖 Explorar Documentação
         </a>
         <a href="https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S" target="_blank" class="btn-outline">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
           Ver no GitHub
         </a>
       </div>
@@ -726,8 +1118,11 @@
         <div class="label">Proposições Monitoradas</div>
         <div class="hero-map-stat">4 Épicos</div>
         <div class="hero-map-sub">Câmara + Senado Federal</div>
-        <div class="hero-bar"><div class="hero-bar-fill" style="width:68%"></div></div>
-        <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:11px; color:var(--text-muted)">
+        <div class="hero-bar">
+          <div class="hero-bar-fill" style="width:68%"></div>
+        </div>
+        <div
+          style="display:flex; justify-content:space-between; margin-top:6px; font-size:11px; color:var(--text-muted)">
           <span>Spec concluída</span>
           <span style="color:var(--accent-bright)">68%</span>
         </div>
@@ -766,41 +1161,59 @@
     <div class="doc-card" style="border-left:3px solid #a78bfa; padding-left:calc(1.25rem - 3px);">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
         <div class="doc-card-icon" style="width:36px;height:36px;font-size:18px">🏠</div>
-        
+
       </div>
       <div class="doc-card-title">Épico 1 — Home</div>
-      <div style="font-size:11px; color:var(--accent-soft); font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">Landing Page</div>
-      <div class="doc-card-desc">Painel inicial com indicadores que apresenta o projeto e orienta o cidadão e o pesquisador às demais seções da plataforma.</div>
+      <div
+        style="font-size:11px; color:var(--accent-soft); font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">
+        Landing Page</div>
+      <div class="doc-card-desc">Painel inicial com indicadores que apresenta o projeto e orienta o cidadão e o
+        pesquisador às demais seções da plataforma.</div>
     </div>
 
     <div class="doc-card" style="border-left:3px solid #2dd4bf; padding-left:calc(1.25rem - 3px);">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-        <div class="doc-card-icon" style="width:36px;height:36px;font-size:18px;background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.25)">📊</div>
-        
+        <div class="doc-card-icon"
+          style="width:36px;height:36px;font-size:18px;background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.25)">
+          📊</div>
+
       </div>
       <div class="doc-card-title">Épico 2 — Dashboards</div>
-      <div style="font-size:11px; color:#2dd4bf; font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">Visualização de Dados</div>
-      <div class="doc-card-desc">Gráficos filtrando por tipo de dado, partido, gênero dos autores, UF e temas. Visualização de projetos e tramitações com acompanhamento das últimas movimentações legislativas.</div>
+      <div
+        style="font-size:11px; color:#2dd4bf; font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">
+        Visualização de Dados</div>
+      <div class="doc-card-desc">Gráficos filtrando por tipo de dado, partido, gênero dos autores, UF e temas.
+        Visualização de projetos e tramitações com acompanhamento das últimas movimentações legislativas.</div>
     </div>
 
     <div class="doc-card" style="border-left:3px solid #ec4899; padding-left:calc(1.25rem - 3px);">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-        <div class="doc-card-icon" style="width:36px;height:36px;font-size:18px;background:rgba(236,72,153,.1);border-color:rgba(236,72,153,.25)">🔍</div>
-        
+        <div class="doc-card-icon"
+          style="width:36px;height:36px;font-size:18px;background:rgba(236,72,153,.1);border-color:rgba(236,72,153,.25)">
+          🔍</div>
+
       </div>
       <div class="doc-card-title">Épico 3 — Consulta de Proposições</div>
-      <div style="font-size:11px; color:#ec4899; font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">Busca e Filtros Legislativos</div>
-      <div class="doc-card-desc">Filtrar proposições por ano, período, partido, estado e status. Visualizar lista de parlamentares ativos, busca livre por texto e rastreamento do tempo médio de tramitação.</div>
+      <div
+        style="font-size:11px; color:#ec4899; font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">
+        Busca e Filtros Legislativos</div>
+      <div class="doc-card-desc">Filtrar proposições por ano, período, partido, estado e status. Visualizar lista de
+        parlamentares ativos, busca livre por texto e rastreamento do tempo médio de tramitação.</div>
     </div>
 
     <div class="doc-card" style="border-left:3px solid #34d399; padding-left:calc(1.25rem - 3px);">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-        <div class="doc-card-icon" style="width:36px;height:36px;font-size:18px;background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.25)">📋</div>
-        
+        <div class="doc-card-icon"
+          style="width:36px;height:36px;font-size:18px;background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.25)">
+          📋</div>
+
       </div>
       <div class="doc-card-title">Épico 4 — Detalhamento Legislativo</div>
-      <div style="font-size:11px; color:#34d399; font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">Tela de Detalhe da Proposta</div>
-      <div class="doc-card-desc">Histórico completo de tramitação, identificação de autor e relator, explicação da ementa, compartilhamento da proposição e acesso ao PDF base da proposta inicial da lei.</div>
+      <div
+        style="font-size:11px; color:#34d399; font-weight:500; margin:2px 0 8px; text-transform:uppercase; letter-spacing:.05em">
+        Tela de Detalhe da Proposta</div>
+      <div class="doc-card-desc">Histórico completo de tramitação, identificação de autor e relator, explicação da
+        ementa, compartilhamento da proposição e acesso ao PDF base da proposta inicial da lei.</div>
     </div>
 
   </div>
@@ -820,16 +1233,19 @@
       <div class="doc-card-desc">Conheça a arquitetura técnica do sistema, suas camadas e decisões de design.</div>
       <div class="doc-card-link">Ver mais →</div>
     </a>
-    <a href="#tecnologias" class="doc-card" onclick="document.getElementById('tecnologias').scrollIntoView({behavior:'smooth'}); return false;">
+    <a href="#tecnologias" class="doc-card"
+      onclick="document.getElementById('tecnologias').scrollIntoView({behavior:'smooth'}); return false;">
       <div class="doc-card-icon">💻</div>
       <div class="doc-card-title">Tecnologias</div>
-      <div class="doc-card-desc">As principais tecnologias e ferramentas utilizadas no desenvolvimento da plataforma.</div>
+      <div class="doc-card-desc">As principais tecnologias e ferramentas utilizadas no desenvolvimento da plataforma.
+      </div>
       <div class="doc-card-link">Ver mais →</div>
     </a>
     <a href="https://github.com/unb-mds./graphs/contributors" target="_blank" class="doc-card">
       <div class="doc-card-icon">👥</div>
       <div class="doc-card-title">Equipe</div>
-      <div class="doc-card-desc">Conheça os integrantes do projeto, suas funções e contribuições no desenvolvimento.</div>
+      <div class="doc-card-desc">Conheça os integrantes do projeto, suas funções e contribuições no desenvolvimento.
+      </div>
       <div class="doc-card-link">Ver mais →</div>
     </a>
   </div>
@@ -898,12 +1314,22 @@
       </div>
 
       <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border)">
-        <div style="font-size:12px; color:var(--text-muted); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:600;">Metodologia</div>
+        <div
+          style="font-size:12px; color:var(--text-muted); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em; font-weight:600;">
+          Metodologia</div>
         <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:12.5px; color:var(--text-secondary)">
-          <span style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">🔄 Scrum</span>
-          <span style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">🌿 GitFlow</span>
-          <span style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">🤖 CI/CD</span>
-          <span style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">✅ Pull Requests</span>
+          <span
+            style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">🔄
+            Scrum</span>
+          <span
+            style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">🌿
+            GitFlow</span>
+          <span
+            style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">🤖
+            CI/CD</span>
+          <span
+            style="background:rgba(139,92,246,.12); border:1px solid var(--border); padding:4px 12px; border-radius:20px;">✅
+            Pull Requests</span>
         </div>
       </div>
     </div>
@@ -911,10 +1337,12 @@
     <div class="about-card">
       <h3>Sobre o Projeto</h3>
       <p>
-        O Mapa L.I.L.A.S é uma plataforma para monitoramento de dados legislativos com relação à pauta do feminicídio, desenvolvida na disciplina de MDS da Universidade de Brasília.
+        O Mapa L.I.L.A.S é uma plataforma para monitoramento de dados legislativos com relação à pauta do feminicídio,
+        desenvolvida na disciplina de MDS da Universidade de Brasília.
       </p>
       <p>
-        Unifica e mapeia proposições da Câmara dos Deputados e do Senado Federal em painéis visuais interativos, apoiando a transparência e accountability de políticas públicas.
+        Unifica e mapeia proposições da Câmara dos Deputados e do Senado Federal em painéis visuais interativos,
+        apoiando a transparência e accountability de políticas públicas.
       </p>
       <a href="./" class="about-link">
         Saiba mais sobre o projeto →
@@ -928,42 +1356,67 @@
   <div class="section-title" id="metodologia">Metodologia e Ciclo de Vida</div>
   <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-bottom:2rem;">
 
-    <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.25rem; display:flex; flex-direction:column; gap:10px; transition:all .2s;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div
+      style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.25rem; display:flex; flex-direction:column; gap:10px; transition:all .2s;"
+      onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border)'">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:38px;height:38px;border-radius:10px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🔄</div>
+        <div
+          style="width:38px;height:38px;border-radius:10px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">
+          🔄</div>
         <div>
-          <div style="font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--text-primary)">Sprints</div>
-          <div style="font-size:11px;color:var(--accent-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:500">Scrum / Kanban</div>
+          <div style="font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--text-primary)">Sprints
+          </div>
+          <div
+            style="font-size:11px;color:var(--accent-soft);text-transform:uppercase;letter-spacing:.05em;font-weight:500">
+            Scrum / Kanban</div>
         </div>
       </div>
       <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
-        A equipe trabalha sob os princípios de metodologias ágeis com ciclos iterativos de desenvolvimento, garantindo entregas contínuas e rastreabilidade de progresso.
+        A equipe trabalha sob os princípios de metodologias ágeis com ciclos iterativos de desenvolvimento, garantindo
+        entregas contínuas e rastreabilidade de progresso.
       </div>
     </div>
 
-    <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.25rem; display:flex; flex-direction:column; gap:10px; transition:all .2s;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div
+      style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.25rem; display:flex; flex-direction:column; gap:10px; transition:all .2s;"
+      onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border)'">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:38px;height:38px;border-radius:10px;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🌿</div>
+        <div
+          style="width:38px;height:38px;border-radius:10px;background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">
+          🌿</div>
         <div>
-          <div style="font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--text-primary)">Controle de Versões</div>
-          <div style="font-size:11px;color:#2dd4bf;text-transform:uppercase;letter-spacing:.05em;font-weight:500">GitFlow</div>
+          <div style="font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--text-primary)">Controle
+            de Versões</div>
+          <div style="font-size:11px;color:#2dd4bf;text-transform:uppercase;letter-spacing:.05em;font-weight:500">
+            GitFlow</div>
         </div>
       </div>
       <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
-        Adotamos o fluxo de trabalho <strong style="color:var(--text-secondary)">GitFlow</strong> para a gestão das branches <code style="font-size:11px;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px">Dev</code> e <code style="font-size:11px;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px">Main</code>. Toda integração de código passa por <em>Pull Requests</em> com revisão por pares.
+        Adotamos o fluxo de trabalho <strong style="color:var(--text-secondary)">GitFlow</strong> para a gestão das
+        branches <code
+          style="font-size:11px;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px">Dev</code> e <code
+          style="font-size:11px;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px">Main</code>. Toda
+        integração de código passa por <em>Pull Requests</em> com revisão por pares.
       </div>
     </div>
 
-    <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.25rem; display:flex; flex-direction:column; gap:10px; transition:all .2s;" onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div
+      style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.25rem; display:flex; flex-direction:column; gap:10px; transition:all .2s;"
+      onmouseover="this.style.borderColor='var(--border-hover)'" onmouseout="this.style.borderColor='var(--border)'">
       <div style="display:flex; align-items:center; gap:10px;">
-        <div style="width:38px;height:38px;border-radius:10px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🤖</div>
+        <div
+          style="width:38px;height:38px;border-radius:10px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">
+          🤖</div>
         <div>
-          <div style="font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--text-primary)">Integração Contínua</div>
-          <div style="font-size:11px;color:#fbbf24;text-transform:uppercase;letter-spacing:.05em;font-weight:500">CI/CD · GitHub Actions</div>
+          <div style="font-family:'Syne',sans-serif;font-size:.9rem;font-weight:600;color:var(--text-primary)">
+            Integração Contínua</div>
+          <div style="font-size:11px;color:#fbbf24;text-transform:uppercase;letter-spacing:.05em;font-weight:500">CI/CD
+            · GitHub Actions</div>
         </div>
       </div>
       <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
-        Os pipelines realizam testes automatizados, análise estática de código e o deployment contínuo da documentação e das métricas SCRUM via GitHub Pages.
+        Os pipelines realizam testes automatizados, análise estática de código e o deployment contínuo da documentação e
+        das métricas SCRUM via GitHub Pages.
       </div>
     </div>
 
@@ -971,9 +1424,12 @@
 
   <!-- COMO EXECUTAR -->
   <div class="section-title">Como Executar Localmente</div>
-  <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.5rem; margin-bottom:2rem;">
-    <div style="font-size:13px; color:var(--text-muted); margin-bottom:1rem">Siga os passos abaixo para configurar o ambiente de desenvolvimento:</div>
-    <pre style="background:rgba(0,0,0,.3); border:1px solid var(--border); border-radius:9px; padding:1rem 1.25rem; font-size:13px; color:var(--accent-soft); overflow-x:auto; font-family:monospace; line-height:1.7"><span style="color:var(--text-muted)"># 1. Clonar o repositório</span>
+  <div
+    style="background:var(--bg-card); border:1px solid var(--border); border-radius:13px; padding:1.5rem; margin-bottom:2rem;">
+    <div style="font-size:13px; color:var(--text-muted); margin-bottom:1rem">Siga os passos abaixo para configurar o
+      ambiente de desenvolvimento:</div>
+    <pre
+      style="background:rgba(0,0,0,.3); border:1px solid var(--border); border-radius:9px; padding:1rem 1.25rem; font-size:13px; color:var(--accent-soft); overflow-x:auto; font-family:monospace; line-height:1.7"><span style="color:var(--text-muted)"># 1. Clonar o repositório</span>
 git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
 cd 2026-1-Mapa_L.I.L.A.S
 
