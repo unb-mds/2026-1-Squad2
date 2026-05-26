@@ -44,11 +44,24 @@ nav:
       - Reunião06: ATAS Reunião/Ata13_05.md
 
   - Estudos:
-      - Estudo00: Estudos/Sprint00.md
-      - Estudo01: Estudos/Sprint01.md
-      - Estudo02: Estudos/Sprint02.md
-      - Estudo03: Estudos/Sprint03.md
-      - Estudo04: Estudos/Sprint04.md
+      - Sprint 00:
+          - Arquitetura de Software: Estudos/Sprint00/arquiteturaSoftware.md
+          - Requisitos de Software: Estudos/Sprint00/Estudo_Requisitos_de_software.md
+          - Git Cheat Sheet: Estudos/Sprint00/git-cheat-sheet.md
+          - Guia Rápido Git/GitHub: Estudos/Sprint00/GuiaRapido_GitGitHub.md
+          - Metodologias Ágeis: Estudos/Sprint00/_Metodologias.Ageis.md
+      - Sprint 01:
+          - Docker: Estudos/Sprint01/Docker.md
+      - Sprint 02:
+          - PostgreSQL: Estudos/Sprint02/postgreSQL.md
+          - Protótipo Figma: Estudos/Sprint02/prototipoFigma.md
+      - Sprint 03:
+          - Persona: Estudos/Sprint03/persona.md
+      - Sprint 04:
+          - Estudo API Câmara/Senado: "Estudos/Sprint04/Estudo API da Câmara do Senado.md"
+          - Pesquisa Legislativa: "Estudos/Sprint04/Pesquisa Legislativa - Monitoramento de PLs (API do Senado).md"
+          - Story Map Figma: Estudos/Sprint04/StoryMap-figma.md
+          - Wireframe: Estudos/Sprint04/Wireframe.md
 
   - Métricas de Produtividade:
       - Dashboard: scrum/index.html
