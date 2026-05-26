@@ -1,4 +1,6 @@
-# Implementação Dashboard
+git add .
+git commit -m "docs: substituir arquivos PDF por documentação MkDocs"
+git push# Implementação Dashboard
 
 ## 1. Resumo
 
