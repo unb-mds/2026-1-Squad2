@@ -1,6 +1,5 @@
 site_name: Mapa L.I.L.A.S
 site_description: Documentação do projeto, com os nossos estudos, conteúdos de Sprints, e tudo mais que for relevante para o projeto.
-
 theme:
   name: material
   custom_dir: overrides
