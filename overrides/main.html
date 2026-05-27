@@ -881,8 +881,34 @@
         </svg>
       </div>
       <div class="nav-sub" id="sub-arq">
-        <a href="Arquitetura/Arquitetura_Tecnica/" class="nav-item" onclick="setActive(this)">
-          <span class="nav-icon">⚙️</span> Arquitetura Técnica
+        <a href="Arquitetura/Visao_Geral/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">⚙️</span> Visão Geral
+        </a>
+        <a href="Arquitetura/C4_Model/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">🧩</span> Modelagem C4
+        </a>
+        <a href="Arquitetura/ADRs/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">📝</span> ADRs
+        </a>
+        <a href="Arquitetura/Seguranca_Escalabilidade/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">🛡️</span> Banco e Qualidade
+        </a>
+      </div>
+    </div>
+  
+    <div class="nav-section">
+      <div class="nav-group-header open" onclick="toggleGroup(this)">
+        <span>Banco de Dados</span>
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+      <div class="nav-sub" id="sub-db">
+        <a href="Banco de Dados/tables/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">⚙️</span> Tabelas do Banco
+        </a>
+        <a href="Banco de Dados/relacionamento_tabelas/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">🧩</span> Diagrama de Relações
         </a>
       </div>
     </div>
@@ -900,6 +926,18 @@
         </a>
         <a href="Requisitos/Criterios de aceitacao/" class="nav-item" onclick="setActive(this)">
           <span class="nav-icon">✅</span> Critérios de Aceitação
+        </a>
+        <a href="Requisitos/Persona/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">👤</span> Persona
+        </a>
+        <a href="Requisitos/StoryMap/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">🗺️</span> Story Map
+        </a>
+        <a href="Requisitos/Wireframe/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">🖼️</span> Wireframe
+        </a>
+        <a href="Requisitos/Protótipo Alta Fidelidade/" class="nav-item" onclick="setActive(this)">
+          <span class="nav-icon">🎨</span> Protótipo Alta Fidelidade
         </a>
       </div>
     </div>
@@ -1101,7 +1139,7 @@
         e do Senado em painéis visuais interativos para apoiar a transparência e accountability.
       </p>
       <div class="hero-btns">
-        <a href="Arquitetura/Arquitetura_Tecnica/" class="btn-primary">
+        <a href="Arquitetura/Visao_Geral/" class="btn-primary">
           📖 Explorar Documentação
         </a>
         <a href="https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S" target="_blank" class="btn-outline">
@@ -1227,7 +1265,7 @@
       <div class="doc-card-desc">Entenda a visão do produto, seus objetivos e o impacto social que queremos gerar.</div>
       <div class="doc-card-link">Ver mais →</div>
     </a>
-    <a href="Arquitetura/Arquitetura_Tecnica/" class="doc-card">
+    <a href="Arquitetura/Visao_Geral/" class="doc-card">
       <div class="doc-card-icon">🏗️</div>
       <div class="doc-card-title">Arquitetura</div>
       <div class="doc-card-desc">Conheça a arquitetura técnica do sistema, suas camadas e decisões de design.</div>
@@ -1434,7 +1472,7 @@ git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
 cd 2026-1-Mapa_L.I.L.A.S
 
 <span style="color:var(--text-muted)"># 2. Consulte a documentação de arquitetura para os próximos passos</span>
-<span style="color:var(--text-muted)"># → Arquitetura/Arquitetura_Tecnica/</span></pre>
+<span style="color:var(--text-muted)"># → Arquitetura/Visao_Geral/</span></pre>
   </div>
 
 </main>

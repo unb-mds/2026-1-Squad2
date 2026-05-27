@@ -1,83 +1,62 @@
-# Protótipo Alta Fidelidade — Mapa L.I.L.A.S.
+# ✨ Protótipo de Alta Fidelidade
 
-> Documentação visual das telas projetadas para a plataforma L.I.L.A.S. — Monitoramento Legislativo do Feminicídio.
+Nesta seção, apresentamos o design visual final de alta fidelidade para a aplicação **Mapa L.I.L.A.S.**.
+Navegue pelas abas abaixo para conferir o visual planejado (cores, tipografia, espaçamentos) para cada fluxo principal.
 
----
+## Telas do Sistema
 
-## INÍCIO
+=== "🏠 Início"
+    ![Início](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/IN%C3%8DCIO.png)
+    
+    *Página inicial da plataforma, apresentando o propósito do projeto e acesso às seções principais.*
 
-Página inicial da plataforma, apresentando o propósito do projeto e acesso às seções principais.
+=== "📊 Visão Gráficos"
+    ![Gráficos](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/15c018b7dfb9e21f27cdecfb14e90263ea454108/docs/Requisitos/imagens/GR%C3%81FICOS.png)
+    
+    *Overview das visualizações gráficas com diferentes formas de análise dos dados legislativos.*
 
-![Início](./imagens/INÍCIO.png)
+=== "📈 Variações de Dashboards"
 
----
+    <div class="grid cards" markdown="1">
 
-## GRÁFICOS
+    -   **Barras Horizontais**
+        
+        ---
+        ![Barras Horizontais](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/15c018b7dfb9e21f27cdecfb14e90263ea454108/docs/Requisitos/imagens/Dashboard%20-%20Gr%C3%A1fico%20de%20Barras%20Horizontais.png)
 
-Página de visualizações gráficas com diferentes formas de análise dos dados legislativos.
+    -   **Colunas Verticais**
+        
+        ---
+        ![Colunas Verticais](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/15c018b7dfb9e21f27cdecfb14e90263ea454108/docs/Requisitos/imagens/Dashboard%20-%20Gr%C3%A1fico%20de%20Colunas.png)
 
-![Gráficos](./imagens/GRÁFICOS.png)
+    -   **Gráfico de Pizza**
+        
+        ---
+        ![Gráfico de Pizza](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/15c018b7dfb9e21f27cdecfb14e90263ea454108/docs/Requisitos/imagens/Dashboard%20-%20Gr%C3%A1fico%20de%20Pizza.png)
 
----
+    -   **Gráfico de Rosca**
+        
+        ---
+        ![Gráfico de Rosca](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/15c018b7dfb9e21f27cdecfb14e90263ea454108/docs/Requisitos/imagens/Dashboard%20-%20Gr%C3%A1fico%20de%20Rosca.png)
 
-## Dashboard — Gráfico de Barras Horizontais
+    </div>
 
-Visualização dos dados em formato de barras horizontais para comparação entre categorias.
+=== "📑 Projetos de Lei"
+    ![Lista de Projetos](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/PL.png)
+    
+    *Listagem paginada de PLs relacionados ao combate ao feminicídio, com filtros dinâmicos.*
 
-![Dashboard - Gráfico de Barras Horizontais](./imagens/Dashboard%20-%20Gráfico%20de%20Barras%20Horizontais.png)
+=== "🔍 PL Detalhado"
+    ![PL Detalhado](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/PL%20DETALHADO.png)
+    
+    *Página de detalhamento de um Projeto de Lei com autoria, tramitação, ementa e download.*
 
----
+=== "🏆 Ranking de Parlamentares"
+    ![Ranking de Parlamentares](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/RANKING%20PARLAMENTARES.png)
+    
+    *Ranking dinâmico dos parlamentares mais ativos nas proposições da casa legislativa.*
 
-## Dashboard — Gráfico de Colunas
-
-Visualização dos dados em formato de colunas verticais para análise temporal ou categórica.
-
-![Dashboard - Gráfico de Colunas](./imagens/Dashboard%20-%20Gráfico%20de%20Colunas.png)
-
----
-
-## Dashboard — Gráfico de Pizza
-
-Visualização proporcional dos dados em formato de pizza para análise de distribuição.
-
-![Dashboard - Gráfico de Pizza](./imagens/Dashboard%20-%20Gráfico%20de%20Pizza.png)
-
----
-
-## Dashboard — Gráfico de Rosca
-
-Variação do gráfico de pizza com espaço central, destacando proporções de forma visual.
-
-![Dashboard - Gráfico de Rosca](./imagens/Dashboard%20-%20Gráfico%20de%20Rosca.png)
-
----
-
-## PL — Listagem de Projetos de Lei
-
-Página principal de consulta legislativa com listagem paginada, filtros avançados e ordenação dos projetos de lei relacionados ao combate ao feminicídio.
-
-![PL](./imagens/PL.png)
-
----
-
-## PL Detalhado
-
-Página de detalhamento de um Projeto de Lei específico, com informações completas sobre autoria, tramitação e ementa.
-
-![PL Detalhado](./imagens/PL%20DETALHADO.png)
-
----
-
-## Ranking de Parlamentares
-
-Página com ranking dos parlamentares mais ativos na proposição de projetos relacionados aos direitos da mulher e combate ao feminicídio.
-
-![Ranking Parlamentares](./imagens/RANKING%20PARLAMENTARES.png)
-
----
-
-## Parlamentares Detalhado
-
-Página de perfil detalhado de um parlamentar, com histórico de proposições e engajamento legislativo.
-
-![Parlamentares Detalhado](./imagens/PARLAMENTARES%20DETALHADO.png)
+=== "👤 Perfil Parlamentar"
+    ![Perfil Parlamentar](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/PARLAMENTARES%20DETALHADO.png)
+    
+    *Perfil detalhado mostrando o engajamento e histórico das proposições de um parlamentar.*
