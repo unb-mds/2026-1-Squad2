@@ -4,344 +4,371 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Métricas SCRUM — Mapa L.I.L.A.S</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:        #0f1117;
-      --surface:   #1a1d27;
-      --border:    #2a2d3a;
-      --text:      #e2e4ef;
-      --muted:     #7c7f9a;
-      --accent:    #b06aff;
-      --green:     #4caf83;
-      --red:       #e05c6a;
-      --yellow:    #f0b429;
-      --blue:      #4da6ff;
-      --radius:    10px;
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #7c3aed;
+      --green: #3fb950;
+      --red: #f85149;
+      --yellow: #d29922;
+      --blue: #58a6ff;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .card h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 16px; }
+    canvas { max-height: 220px; }
+
+    /* Heatmap */
+    #heatmap-container { overflow-x: auto; }
+    .heatmap-grid { display: grid; grid-template-columns: 52px repeat(24, 1fr); gap: 2px; min-width: 640px; }
+    .heatmap-cell {
+      height: 22px; border-radius: 3px;
+      cursor: default; position: relative;
+    }
+    .heatmap-label { display: flex; align-items: center; font-size: 11px; color: var(--muted); }
+    .heatmap-hour-label { text-align: center; font-size: 10px; color: var(--muted); padding-bottom: 4px; }
+
+    /* Tooltip */
+    .tooltip {
+      position: fixed; pointer-events: none; z-index: 50;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 8px 12px; font-size: 12px;
+      color: var(--text); display: none; white-space: nowrap;
     }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Segoe UI", system-ui, sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-      padding: 32px 24px;
-    }
+    /* Rankings */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { color: var(--muted); font-weight: 500; text-transform: uppercase; font-size: 11px; letter-spacing: 0.06em; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    td { padding: 10px 12px; border-bottom: 1px solid rgba(48,54,61,0.5); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--border); font-size: 11px; font-weight: 600; }
+    .rank-1 { background: #b8860b; color: #fff; }
+    .rank-2 { background: #808080; color: #fff; }
+    .rank-3 { background: #8B4513; color: #fff; }
 
-    header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    header h1 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    header h1 span { color: var(--accent); }
-
-    .meta {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: right;
-    }
-
-    .meta strong { color: var(--text); }
-
-    /* ── Empty state ── */
-    .empty-banner {
-      display: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 32px;
-    }
-
-    .empty-banner.visible { display: block; }
-
-    /* ── Grid ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-    }
-
-    .card h2 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .card canvas {
-      max-height: 240px;
-    }
-
-    /* volume chart taller for horizontal bars */
-    .card.tall canvas {
-      max-height: 360px;
-    }
-
-    footer {
-      margin-top: 32px;
-      text-align: center;
-      font-size: 11px;
-      color: var(--border);
-    }
+    /* Empty state */
+    .empty { color: var(--muted); font-size: 13px; text-align: center; padding: 24px 0; }
   </style>
 </head>
-<body>
+<body class="min-h-screen p-4 md:p-8">
 
-<header>
-  <h1>Métricas <span>L.I.L.A.S</span> — Painel SCRUM</h1>
-  <div class="meta" id="meta-block">
-    Repositório: <strong id="meta-repo">—</strong><br>
-    Atualizado em: <strong id="meta-time">—</strong>
-  </div>
-</header>
+  <div id="tooltip" class="tooltip"></div>
 
-<div class="empty-banner" id="empty-banner">
-  😶 Sem atividades recentes no repositório. O painel será atualizado na próxima execução.
-</div>
+  <!-- Header -->
+  <header class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight">
+        Métricas <span style="color: var(--accent)">L.I.L.A.S</span> — Painel SCRUM
+      </h1>
+      <p id="meta-repo" class="text-sm mt-1" style="color: var(--muted)">—</p>
+    </div>
+    <div class="text-right text-xs" style="color: var(--muted)">
+      Atualizado em<br><strong id="meta-time" class="text-white">—</strong>
+    </div>
+  </header>
 
-<div class="grid">
-  <div class="card">
-    <h2>Commits por semana</h2>
-    <canvas id="chart-commits"></canvas>
-  </div>
+  <!-- Loading / Error state -->
+  <div id="loading" class="empty">Carregando métricas...</div>
+  <div id="error" class="empty" style="display:none; color: var(--red)"></div>
 
-  <div class="card">
-    <h2>Fluxo de Issues — Abertas vs. Fechadas</h2>
-    <canvas id="chart-issues"></canvas>
-  </div>
+  <!-- Dashboard (hidden until data loads) -->
+  <div id="dashboard" style="display:none">
 
-  <div class="card tall">
-    <h2>Volume por Issue (proxy de esforço — chars no corpo)</h2>
-    <canvas id="chart-volumes"></canvas>
-  </div>
+    <!-- Row 1: Linha de issues + Histograma de commits -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="card">
+        <h2>Issues abertas vs. fechadas por semana</h2>
+        <canvas id="chart-issues-line"></canvas>
+      </div>
+      <div class="card">
+        <h2>Histograma — tamanho das mensagens de commit</h2>
+        <canvas id="chart-commit-hist"></canvas>
+      </div>
+    </div>
 
-  <div class="card">
-    <h2>Pull Requests — Abertas / Mergeadas / Rejeitadas</h2>
-    <canvas id="chart-prs"></canvas>
-  </div>
-</div>
+    <!-- Row 2: Co-autores + Barras empilhadas de issues -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="card">
+        <h2>Co-autores por semana</h2>
+        <canvas id="chart-coauthors"></canvas>
+      </div>
+      <div class="card">
+        <h2>Issues abertas / fechadas por semana (empilhado)</h2>
+        <canvas id="chart-issues-stacked"></canvas>
+      </div>
+    </div>
 
-<footer>Gerado automaticamente via GitHub Actions · Dados embutidos em build-time · Sem requisições em runtime</footer>
+    <!-- Row 3: Heatmap full width -->
+    <div class="card mb-4">
+      <h2>Mapa de calor — horário dos commits por dia da semana</h2>
+      <div id="heatmap-container"></div>
+    </div>
 
-<script type="application/json" id="data-payload">{"generated_at": "24/05/2026 às 21:48 UTC", "repo": "unb-mds/2026-1-Mapa_L.I.L.A.S", "has_activity": true, "weeks": ["2026-W10", "2026-W11", "2026-W12", "2026-W13", "2026-W14", "2026-W15", "2026-W16", "2026-W17", "2026-W18", "2026-W19", "2026-W20", "2026-W21"], "commits": [0, 0, 1, 0, 2, 0, 7, 6, 14, 10, 34, 4], "issues_opened": [0, 0, 1, 4, 5, 6, 2, 5, 1, 0, 3, 7], "issues_closed": [0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 21, 3], "issue_volumes": [{"number": 29, "title": "Critérios de Aceitação", "body_len": 6956}, {"number": 7, "title": "Estudo de Docker e Padronização do Ambiente", "body_len": 4939}, {"number": 20, "title": "Pesquisa Legislativa - Monitoramento de PLs (API do Senado)", "body_len": 4184}, {"number": 42, "title": "feat(backend): Implementação da Especificação (Spec) de Mine", "body_len": 3508}, {"number": 40, "title": "fix(api): Otimização do Endpoint `/projetos-de-lei`, Normali", "body_len": 3459}, {"number": 39, "title": "fix(backend): Reformulação da Mineração de Dados e Resiliênc", "body_len": 3283}, {"number": 27, "title": "ATA Reunião 29/04", "body_len": 3242}, {"number": 41, "title": "docs(spec): Definição das Regras de Negócio, Normalização e ", "body_len": 3138}, {"number": 37, "title": "feat: implementação do frontend da Página de Projetos de Lei", "body_len": 3135}, {"number": 38, "title": "fix: testes e correção de bugs do frontend da Página de Proj", "body_len": 2776}, {"number": 24, "title": "Estudo: Requisitos e Fluxo de Dados para o Dashboard Interat", "body_len": 2656}, {"number": 36, "title": "docs: SPEC da Página de Projetos de Lei (Frontend)", "body_len": 2640}, {"number": 6, "title": "Estudo: Implementação de Metodologia Ágil XP (Extreme Progra", "body_len": 2618}, {"number": 14, "title": "Estudo: Possibilidades de Simplificação textual", "body_len": 2268}, {"number": 10, "title": "Estudo: APIs, o básico e essencial", "body_len": 2256}, {"number": 4, "title": "Estudo: Requisitos de Software", "body_len": 2212}, {"number": 32, "title": "[FEAT]: Schemas e Implementação do banco de dados", "body_len": 2090}, {"number": 21, "title": "Criação do dockerfile", "body_len": 2014}, {"number": 33, "title": "[FEAT]: Atualização do Docker compose", "body_len": 1952}, {"number": 11, "title": "Estudo PostegreSQL parte 2 (Fundamentos)", "body_len": 1876}, {"number": 15, "title": "Estudo PostegreSQL parte 1 (Conceitos importantes)", "body_len": 1737}, {"number": 13, "title": "Estudo FastApi", "body_len": 1724}, {"number": 2, "title": "📚 Estudo: Metodologias Ágeis", "body_len": 1595}, {"number": 9, "title": "Estudo Figma + Integração com Github", "body_len": 1557}, {"number": 8, "title": "Estudo: MkDocs", "body_len": 1524}, {"number": 12, "title": "Estudo React + TailwindCSS", "body_len": 1328}, {"number": 17, "title": "Visão de produto", "body_len": 1136}, {"number": 1, "title": "Estudo sobre arquitetura de software", "body_len": 1104}, {"number": 3, "title": "Estudo: Git e Github", "body_len": 970}, {"number": 5, "title": "Ata - Reunião 26/03", "body_len": 936}], "prs_opened": [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 3], "prs_merged": [0, 0, 0, 0, 0, 0, 1, 0, 2, 1, 2, 3], "prs_rejected": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}</script>
+    <!-- Row 4: Rankings -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card">
+        <h2>Top committers</h2>
+        <table id="table-committers">
+          <thead><tr><th>#</th><th>Contribuidor</th><th class="text-right">Commits</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p id="empty-committers" class="empty" style="display:none">Sem dados</p>
+      </div>
+      <div class="card">
+        <h2>Top autores de PRs</h2>
+        <table id="table-prs">
+          <thead><tr><th>#</th><th>Contribuidor</th><th class="text-right">PRs</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p id="empty-prs" class="empty" style="display:none">Sem dados</p>
+      </div>
+      <div class="card">
+        <h2>Top em issues (abertas + fechadas)</h2>
+        <table id="table-issues">
+          <thead><tr><th>#</th><th>Contribuidor</th><th class="text-right">Ab.</th><th class="text-right">Fech.</th><th class="text-right">Total</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p id="empty-issues" class="empty" style="display:none">Sem dados</p>
+      </div>
+    </div>
+
+  </div><!-- /dashboard -->
+
+  <footer class="mt-10 text-center text-xs" style="color: var(--border)">
+    Dados coletados via GitHub Actions · JSON servido estaticamente
+  </footer>
 
 <script>
-  // ── Leitura segura: o bloco acima é texto inerte, nunca executado como JS.
-  // Se o placeholder não foi substituído (ex: template aberto diretamente),
-  // o dashboard exibe estado vazio sem travar.
-  const EMPTY_STATE = {
-    has_activity: false, repo: "—", generated_at: "—",
-    weeks: [], commits: [],
-    issues_opened: [], issues_closed: [], issue_volumes: [],
-    prs_opened: [], prs_merged: [], prs_rejected: [],
-  };
+// ---------------------------------------------------------------------------
+// Chart.js defaults
+// ---------------------------------------------------------------------------
+Chart.defaults.color = "#8b949e";
+Chart.defaults.borderColor = "#30363d";
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+Chart.defaults.font.size = 11;
 
-  let DATA = EMPTY_STATE;
-  try {
-    const raw = document.getElementById("data-payload").textContent.trim();
-    if (raw && raw !== "__DATA_PAYLOAD__") {
-      DATA = JSON.parse(raw);
+const TOOLTIP = {
+  backgroundColor: "#161b22",
+  borderColor: "#30363d",
+  borderWidth: 1,
+  titleColor: "#e6edf3",
+  bodyColor: "#8b949e",
+  padding: 10,
+};
+
+// ---------------------------------------------------------------------------
+// Heatmap helpers
+// ---------------------------------------------------------------------------
+const DAY_LABELS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+
+function heatmapColor(value, max) {
+  if (max === 0 || value === 0) return "#e8f4f8";
+  const t = value / max;
+  const r = Math.round(0 + t * (0 - 0));
+  const g = Math.round(51 + t * (51 - 51 * (1 - t)));
+  const b = Math.round(102 + t * (102 - 102));
+  // Interpolate #e8f4f8 → #003366
+  const r1 = 232, g1 = 244, b1 = 248;
+  const r2 = 0,   g2 = 51,  b2 = 102;
+  const ri = Math.round(r1 + t * (r2 - r1));
+  const gi = Math.round(g1 + t * (g2 - g1));
+  const bi = Math.round(b1 + t * (b2 - b1));
+  return `rgb(${ri},${gi},${bi})`;
+}
+
+function buildHeatmap(heatmapData) {
+  const grid = Array.from({length: 7}, () => new Array(24).fill(0));
+  for (const {day, hour, count} of heatmapData) {
+    if (day >= 0 && day < 7 && hour >= 0 && hour < 24) {
+      grid[day][hour] = count;
     }
-  } catch (e) {
-    console.warn("Falha ao ler dados injetados:", e);
+  }
+  const max = Math.max(...grid.flat(), 1);
+
+  const tooltip = document.getElementById("tooltip");
+
+  const container = document.getElementById("heatmap-container");
+  const wrapper = document.createElement("div");
+  wrapper.className = "heatmap-grid";
+
+  // Hour labels row
+  const cornerLabel = document.createElement("div");
+  wrapper.appendChild(cornerLabel);
+  for (let h = 0; h < 24; h++) {
+    const el = document.createElement("div");
+    el.className = "heatmap-hour-label";
+    el.textContent = h % 3 === 0 ? `${h}h` : "";
+    wrapper.appendChild(el);
   }
 
-  // Populate meta
-  document.getElementById("meta-repo").textContent = DATA.repo || "—";
-  document.getElementById("meta-time").textContent = DATA.generated_at || "—";
+  // Data rows
+  for (let d = 0; d < 7; d++) {
+    const dayLabel = document.createElement("div");
+    dayLabel.className = "heatmap-label";
+    dayLabel.textContent = DAY_LABELS[d];
+    wrapper.appendChild(dayLabel);
 
-  if (!DATA.has_activity) {
-    document.getElementById("empty-banner").classList.add("visible");
+    for (let h = 0; h < 24; h++) {
+      const count = grid[d][h];
+      const cell = document.createElement("div");
+      cell.className = "heatmap-cell";
+      cell.style.backgroundColor = heatmapColor(count, max);
+
+      cell.addEventListener("mouseenter", (e) => {
+        tooltip.style.display = "block";
+        tooltip.textContent = `${DAY_LABELS[d]} ${h}h — ${count} commit${count !== 1 ? "s" : ""}`;
+      });
+      cell.addEventListener("mousemove", (e) => {
+        tooltip.style.left = (e.clientX + 14) + "px";
+        tooltip.style.top  = (e.clientY - 8)  + "px";
+      });
+      cell.addEventListener("mouseleave", () => {
+        tooltip.style.display = "none";
+      });
+
+      wrapper.appendChild(cell);
+    }
   }
 
-  // Shared Chart.js defaults
-  Chart.defaults.color = "#7c7f9a";
-  Chart.defaults.borderColor = "#2a2d3a";
-  Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
-  Chart.defaults.font.size = 11;
+  container.appendChild(wrapper);
+}
 
-  const tooltipDefaults = {
-    backgroundColor: "#1a1d27",
-    borderColor: "#2a2d3a",
-    borderWidth: 1,
-    titleColor: "#e2e4ef",
-    bodyColor: "#b0b3c8",
-    padding: 10,
-  };
-
-  // ── 1. Commits ────────────────────────────────────────────────────────────
-  new Chart(document.getElementById("chart-commits"), {
-    type: "bar",
-    data: {
-      labels: DATA.weeks,
-      datasets: [{
-        label: "Commits",
-        data: DATA.commits,
-        backgroundColor: "rgba(176, 106, 255, 0.65)",
-        borderColor: "#b06aff",
-        borderWidth: 1,
-        borderRadius: 4,
-      }],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: { ...tooltipDefaults },
-      },
-      scales: {
-        x: { ticks: { maxRotation: 45 } },
-        y: { beginAtZero: true, ticks: { stepSize: 1 } },
-      },
-    },
+// ---------------------------------------------------------------------------
+// Rankings
+// ---------------------------------------------------------------------------
+function buildRankingTable(tableId, emptyId, rows, columns) {
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  if (!rows || rows.length === 0) {
+    tbody.closest("table").style.display = "none";
+    document.getElementById(emptyId).style.display = "block";
+    return;
+  }
+  rows.forEach((row, i) => {
+    const pos = i + 1;
+    const rankClass = pos <= 3 ? `rank-${pos}` : "";
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td><span class="rank-badge ${rankClass}">${pos}</span></td>` +
+      columns.map(c => {
+        const val = row[c.key] ?? "—";
+        const align = c.right ? ' class="text-right"' : "";
+        return `<td${align}>${c.format ? c.format(val, row) : val}</td>`;
+      }).join("");
+    tbody.appendChild(tr);
   });
+}
 
-  // ── 2. Issues Fluxo ───────────────────────────────────────────────────────
-  new Chart(document.getElementById("chart-issues"), {
+function displayName(row) {
+  return row.name && row.name !== row.username
+    ? `<span class="font-medium">${row.name}</span><br><span style="color:var(--muted);font-size:11px">@${row.username}</span>`
+    : `@${row.username}`;
+}
+
+// ---------------------------------------------------------------------------
+// Charts
+// ---------------------------------------------------------------------------
+function buildIssuesLine(data) {
+  new Chart(document.getElementById("chart-issues-line"), {
     type: "line",
     data: {
-      labels: DATA.weeks,
+      labels: data.map(d => d.week),
       datasets: [
-        {
-          label: "Abertas",
-          data: DATA.issues_opened,
-          borderColor: "#f0b429",
-          backgroundColor: "rgba(240,180,41,0.12)",
-          tension: 0.35,
-          fill: true,
-          pointRadius: 3,
-        },
-        {
-          label: "Fechadas",
-          data: DATA.issues_closed,
-          borderColor: "#4caf83",
-          backgroundColor: "rgba(76,175,131,0.12)",
-          tension: 0.35,
-          fill: true,
-          pointRadius: 3,
-        },
+        { label: "Abertas",  data: data.map(d => d.opened), borderColor: "#d29922", backgroundColor: "rgba(210,153,34,0.12)", tension: 0.35, fill: true, pointRadius: 3 },
+        { label: "Fechadas", data: data.map(d => d.closed), borderColor: "#3fb950", backgroundColor: "rgba(63,185,80,0.12)",   tension: 0.35, fill: true, pointRadius: 3 },
       ],
     },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: "bottom", labels: { boxWidth: 12 } },
-        tooltip: { ...tooltipDefaults, mode: "index", intersect: false },
-      },
-      scales: {
-        x: { ticks: { maxRotation: 45 } },
-        y: { beginAtZero: true, ticks: { stepSize: 1 } },
-      },
-    },
+    options: { responsive: true, plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { ...TOOLTIP, mode: "index", intersect: false } }, scales: { x: { ticks: { maxRotation: 45 } }, y: { beginAtZero: true, ticks: { stepSize: 1 } } } },
   });
+}
 
-  // ── 3. Volume por Issue ───────────────────────────────────────────────────
-  const volData = DATA.issue_volumes || [];
-  const hasVolumes = volData.length > 0;
-
-  new Chart(document.getElementById("chart-volumes"), {
+function buildIssuesStacked(data) {
+  new Chart(document.getElementById("chart-issues-stacked"), {
     type: "bar",
     data: {
-      labels: hasVolumes
-        ? volData.map(i => `#${i.number} ${i.title}`)
-        : ["Sem issues no período"],
-      datasets: [{
-        label: "Caracteres no corpo",
-        data: hasVolumes ? volData.map(i => i.body_len) : [0],
-        backgroundColor: "rgba(77, 166, 255, 0.65)",
-        borderColor: "#4da6ff",
-        borderWidth: 1,
-        borderRadius: 4,
-      }],
-    },
-    options: {
-      indexAxis: "y",
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          ...tooltipDefaults,
-          callbacks: {
-            label: ctx => ` ${ctx.parsed.x.toLocaleString("pt-BR")} chars`,
-          },
-        },
-      },
-      scales: {
-        x: { beginAtZero: true },
-        y: { ticks: { font: { size: 10 } } },
-      },
-    },
-  });
-
-  // ── 4. Pull Requests ──────────────────────────────────────────────────────
-  new Chart(document.getElementById("chart-prs"), {
-    type: "bar",
-    data: {
-      labels: DATA.weeks,
+      labels: data.map(d => d.week),
       datasets: [
-        {
-          label: "Abertas",
-          data: DATA.prs_opened,
-          backgroundColor: "rgba(240,180,41,0.75)",
-          borderRadius: 4,
-          stack: "prs",
-        },
-        {
-          label: "Mergeadas",
-          data: DATA.prs_merged,
-          backgroundColor: "rgba(76,175,131,0.75)",
-          borderRadius: 4,
-          stack: "prs",
-        },
-        {
-          label: "Rejeitadas",
-          data: DATA.prs_rejected,
-          backgroundColor: "rgba(224,92,106,0.75)",
-          borderRadius: 4,
-          stack: "prs",
-        },
+        { label: "Abertas",  data: data.map(d => d.opened), backgroundColor: "rgba(210,153,34,0.75)", stack: "issues", borderRadius: 3 },
+        { label: "Fechadas", data: data.map(d => d.closed), backgroundColor: "rgba(63,185,80,0.75)",  stack: "issues", borderRadius: 3 },
       ],
     },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: "bottom", labels: { boxWidth: 12 } },
-        tooltip: { ...tooltipDefaults, mode: "index", intersect: false },
-      },
-      scales: {
-        x: { ticks: { maxRotation: 45 }, stacked: true },
-        y: { beginAtZero: true, stacked: true, ticks: { stepSize: 1 } },
-      },
-    },
+    options: { responsive: true, plugins: { legend: { position: "bottom", labels: { boxWidth: 12 } }, tooltip: { ...TOOLTIP, mode: "index", intersect: false } }, scales: { x: { stacked: true, ticks: { maxRotation: 45 } }, y: { stacked: true, beginAtZero: true } } },
   });
+}
+
+function buildCommitHistogram(data) {
+  new Chart(document.getElementById("chart-commit-hist"), {
+    type: "bar",
+    data: {
+      labels: data.map(d => d.range),
+      datasets: [{ label: "Commits", data: data.map(d => d.count), backgroundColor: "rgba(124,58,237,0.7)", borderColor: "#7c3aed", borderWidth: 1, borderRadius: 4 }],
+    },
+    options: { responsive: true, plugins: { legend: { display: false }, tooltip: { ...TOOLTIP } }, scales: { x: { title: { display: true, text: "caracteres na 1ª linha", color: "#8b949e", font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1 } } } },
+  });
+}
+
+function buildCoauthors(data) {
+  new Chart(document.getElementById("chart-coauthors"), {
+    type: "bar",
+    data: {
+      labels: data.map(d => d.week),
+      datasets: [{ label: "Co-autores", data: data.map(d => d.count), backgroundColor: "rgba(88,166,255,0.65)", borderColor: "#58a6ff", borderWidth: 1, borderRadius: 4 }],
+    },
+    options: { responsive: true, plugins: { legend: { display: false }, tooltip: { ...TOOLTIP } }, scales: { x: { ticks: { maxRotation: 45 } }, y: { beginAtZero: true, ticks: { stepSize: 1 } } } },
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Main: fetch + render
+// ---------------------------------------------------------------------------
+async function init() {
+  try {
+    const res = await fetch("./metrics.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+    document.getElementById("meta-repo").textContent = data.repository || "—";
+    document.getElementById("meta-time").textContent = data.generated_at
+      ? new Date(data.generated_at).toLocaleString("pt-BR") : "—";
+
+    buildIssuesLine(data.issues_per_week || []);
+    buildIssuesStacked(data.issues_per_week || []);
+    buildCommitHistogram(data.commit_message_histogram || []);
+    buildCoauthors(data.coauthors_per_week || []);
+    buildHeatmap(data.commit_heatmap || []);
+
+    buildRankingTable("table-committers", "empty-committers", data.top_committers, [
+      { key: "username", format: (_, r) => displayName(r) },
+      { key: "commits", right: true },
+    ]);
+    buildRankingTable("table-prs", "empty-prs", data.top_pr_authors, [
+      { key: "username", format: (_, r) => displayName(r) },
+      { key: "prs_opened", right: true },
+    ]);
+    buildRankingTable("table-issues", "empty-issues", data.top_issue_contributors, [
+      { key: "username", format: (_, r) => displayName(r) },
+      { key: "opened",  right: true },
+      { key: "closed",  right: true },
+      { key: "total",   right: true },
+    ]);
+
+  } catch (err) {
+    document.getElementById("loading").style.display = "none";
+    const el = document.getElementById("error");
+    el.style.display = "block";
+    el.textContent = `Falha ao carregar metrics.json: ${err.message}. Para testar localmente, use um servidor HTTP (python -m http.server 8080 na pasta docs/scrum/).`;
+  }
+}
+
+init();
 </script>
 </body>
 </html>

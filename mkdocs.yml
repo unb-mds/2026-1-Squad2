@@ -48,6 +48,10 @@ nav:
       - Wireframe: Requisitos/Wireframe.md
       - Protótipo Alta Fidelidade: Requisitos/Protótipo Alta Fidelidade.md
 
+  - Banco de Dados:
+      - Tabelas do Banco: Banco de Dados/tables.md
+      - Relações do Banco: Banco de Dados/relacionamento_tabelas.md
+
   - ATAS Reunião:
       - Reunião01: ATAS Reunião/Ata26_03.md
       - Reunião02: ATAS Reunião/Ata30_03.md

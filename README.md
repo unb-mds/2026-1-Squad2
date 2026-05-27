@@ -68,7 +68,7 @@ Para rodar este projeto localmente, você não precisa instalar o Node ou o Pyth
 Abra o terminal e baixe o código do projeto para a sua máquina:
 
 ```bash
-git clone [https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git)
+git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
 cd 2026-1-Mapa_L.I.L.A.S
 
 ```
@@ -113,7 +113,3 @@ Quando os containers estiverem rodando e o terminal indicar que os serviços ini
 * [@Luana Barbosa]()
 * [@Rafael Schetinger]()
 * [@Renan Santos]()
-
-```
-
-```
