@@ -4,55 +4,79 @@ Bem-vindo à documentação oficial do projeto **Mapa L.I.L.A.S**, desenvolvido 
 
 ---
 
-## Visão do Produto
+!!! info "Visão do Produto"
+    O **Mapa LILAS** (*Mapa Legislativo Informativo de Leis de Acompanhamento Social*) é uma plataforma concebida para o monitoramento de dados legislativos com relação à Pauta do Feminicídio e Direitos da Mulher. O nosso foco é fornecer uma solução de software transparente, fiável e analítica.
 
-O **Mapa LILAS** é uma plataforma concebida para o monitoramento de dados Legislativos com relação à Pauta do Feminicídio. 
-O nosso foco é fornecer uma solução de software fiável, mantendo controle de qualidade e aderência a práticas ágeis de desenvolvimento.
+## 🧭 Mapa da Documentação
 
-## Funcionalidades Principais (Épicos)
+Navegue rapidamente pelas seções atualizadas do nosso projeto:
 
-* **[Épico 1] -**
-* **[Épico 2] -**
-* **[Épico 3] -**
+<div class="grid cards" markdown>
 
-## Tecnologias e Arquitetura
+-   📋 **Requisitos e UX**
+    ---
+    Conheça as bases do nosso produto, nosso público-alvo e protótipos.
+    * [Visão do Produto](Requisitos/Visão de produto.md)
+    * [Critérios de Aceitação](Requisitos/Criterios de aceitacao.md)
+    * [Persona (Marina)](Requisitos/Persona.md)
+    * [Story Map & Wireframes](Requisitos/Wireframe.md)
 
-O projeto adota uma arquitetura moderna e escalável, utilizando as seguintes tecnologias:
+-   🏗️ **Arquitetura de Software**
+    ---
+    Detalhes técnicos, decisões e fluxos do nosso Backend de ETL.
+    * [Visão Geral (Sistema)](Arquitetura/Visao_Geral.md)
+    * [Modelagem C4](Arquitetura/C4_Model.md)
+    * [Decisões (ADRs)](Arquitetura/ADRs.md)
+    * [Qualidade e Isolamento DB](Arquitetura/Seguranca_Escalabilidade.md)
 
-* **Backend:** Python (FastAPI)
-* **Frontend:** [React | TailwindCSS]
-* **Base de Dados:** PostgreSQL
-* **Documentação:** Material for MkDocs
+-   🗄️ **Banco de Dados & Estudos**
+    ---
+    Pesquisas e modelagem de persistência.
+    * [PostgreSQL (Sprint 02)](Estudos/Sprint02/postgreSQL.md)
+    * [API Senado / Câmara](<Estudos/Sprint04/Estudo API da Câmara do Senado.md>)
 
-Para um aprofundamento nas nossas decisões técnicas, consulta o **[Documento de Arquitetura de Software](Arquitetura/Arquitetura_Tecnica.md)**.
+</div>
 
-## Requisitos
+---
 
-* **[Critérios de Aceitação](Requisitos/Criterios de aceitacao.md)**
+## 🎯 Funcionalidades Principais (Épicos)
 
-## Reuniões
+1. **Visualização de Dashboards:** Geração de gráficos interativos e alternância de tipos de visualização.
+2. **Home (Landing Page):** Painel inicial com indicadores globais e ranking de estados.
+3. **Consulta de Proposições:** Busca textual com filtros avançados.
+4. **Detalhamento Legislativo:** Exibição da ementa e linha do tempo de tramitação.
 
-* [Reunião 01](ATAS Reunião/Ata26_03.md)
-* [Reunião 02](ATAS Reunião/Ata30_03.md)
-* [Reunião 03](ATAS Reunião/ATA reunião15_04.md)
-* [Reunião 04](ATAS Reunião/Ata29_04.md)
-* [Reunião 05](ATAS Reunião/Ata06_05.md)
-* [Reunião 06](ATAS Reunião/Ata13_05.md)
+---
 
-## Metodologia e Ciclo de Vida
+## 🛠️ Stack Tecnológica
 
-A equipa trabalha sob os princípios de metodologias ágeis (Scrum/Kanban), garantindo entregas contínuas e rastreabilidade:
+| Camada | Tecnologias |
+| :--- | :--- |
+| **Frontend** | React, TailwindCSS |
+| **Backend API & ETL** | Python, FastAPI |
+| **Base de Dados** | PostgreSQL |
+| **Documentação** | Material for MkDocs |
 
-* **Sprints:** Ciclos iterativos de desenvolvimento.
-* **Controlo de Versões:** Adotamos o fluxo de trabalho **GitFlow** para a gestão da branch `Dev` e `Main`. Toda a integração de código passa por *Pull Requests* com revisão por pares.
-* **Integração Contínua (CI/CD):** Os nossos pipelines realizam testes automatizados, análise estática de código e o deployment contínuo desta documentação.
+---
 
-## Como Executar Localmente
+## 🚀 Como Executar Localmente
 
-Para configurares o ambiente de desenvolvimento na tua máquina, segue estes passos:
+Para configurar o ambiente de desenvolvimento na sua máquina:
 
-### 1. Clonar o Repositório
-```bash
-git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
-cd 2026-1-Mapa_L.I.L.A.S
-```
+=== "Comandos (Linux / macOS)"
+
+    ```bash
+    git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
+    cd 2026-1-Mapa_L.I.L.A.S
+    docker-compose up --build -d
+    ```
+
+=== "Comandos (Windows)"
+
+    ```powershell
+    git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
+    cd 2026-1-Mapa_L.I.L.A.S
+    docker-compose up --build -d
+    ```
+
+> Após os containers subirem, o frontend estará disponível em `http://localhost:3000` e a API em `http://localhost:8000`.
