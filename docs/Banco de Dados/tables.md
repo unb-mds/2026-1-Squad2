@@ -82,3 +82,8 @@ Projetos complexos frequentemente possuem múltiplos autores e coautores. Para r
 > **Nota de Implementação:** As chaves primárias nestas tabelas (`PK`) são compostas. Isso significa que a combinação exata de `id_pl` + `id_parlamentar` não pode se repetir na mesma tabela, garantindo que o banco de dados não registre o mesmo deputado assinando o mesmo PL duas vezes com a mesma função.
 
 ![Diagrama de tabelas](image.png)
+
+---
+
+### Links Úteis
+* Veja a [Documentação de Relacionamentos e Fluxo de Dados](relacionamento_tabelas.md) para um detalhamento maior com diagramas ER (Entidade-Relacionamento) de todas as tabelas, chaves e constraints do banco.
