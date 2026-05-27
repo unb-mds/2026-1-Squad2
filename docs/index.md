@@ -26,6 +26,19 @@ O projeto adota uma arquitetura moderna e escalável, utilizando as seguintes te
 
 Para um aprofundamento nas nossas decisões técnicas, consulta o **[Documento de Arquitetura de Software](Arquitetura/Arquitetura_Tecnica.md)**.
 
+## Requisitos
+
+* **[Critérios de Aceitação](Requisitos/Criterios de aceitacao.md)**
+
+## Reuniões
+
+* [Reunião 01](ATAS Reunião/Ata26_03.md)
+* [Reunião 02](ATAS Reunião/Ata30_03.md)
+* [Reunião 03](ATAS Reunião/ATA reunião15_04.md)
+* [Reunião 04](ATAS Reunião/Ata29_04.md)
+* [Reunião 05](ATAS Reunião/Ata06_05.md)
+* [Reunião 06](ATAS Reunião/Ata13_05.md)
+
 ## Metodologia e Ciclo de Vida
 
 A equipa trabalha sob os princípios de metodologias ágeis (Scrum/Kanban), garantindo entregas contínuas e rastreabilidade:
@@ -40,6 +53,6 @@ Para configurares o ambiente de desenvolvimento na tua máquina, segue estes pas
 
 ### 1. Clonar o Repositório
 ```bash
-git clone [https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git)
+git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
 cd 2026-1-Mapa_L.I.L.A.S
 ```
