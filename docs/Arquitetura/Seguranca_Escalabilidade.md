@@ -30,26 +30,26 @@ Em vez de atuar como um *Proxy* para as instáveis APIs do governo, nosso backen
 ```mermaid
 flowchart LR
     subgraph FrontendClient [Frontend Client]
-        Req[Requisição do Usuário]
+        Req["Requisição do Usuário"]
     end
     
     subgraph APIRest [API Rest / Routers]
-        App[FastAPI Endpoints]
-        DB[(PostgreSQL Local)]
+        App["FastAPI Endpoints"]
+        DB[("PostgreSQL Local")]
     end
     
     subgraph BackgroundJobs [Background Jobs / Services]
-        Script[Rotina de População]
-        APIgov[Câmara / Senado]
+        Script["Rotina de População"]
+        APIgov["Câmara / Senado"]
     end
 
-    %% O front conversa SÓ com o banco
-    Req <-->|Instantâneo| App
-    App <-->|Consulta Rápida| DB
+    %% O front conversa SÓ com o banco (seta unidirecional é mais segura no Mermaid)
+    Req -->|"Acesso Instantâneo"| App
+    App -->|"Consulta Rápida"| DB
     
     %% O job atualiza o banco isoladamente
-    Script -->|Baixa Dados Lentos| APIgov
-    Script -->|Atualiza (Upsert)| DB
+    Script -->|"Baixa Dados Lentos"| APIgov
+    Script -->|"Atualiza (Upsert)"| DB
     
     classDef banco fill:#311b92,stroke:#b39ddb,stroke-width:2px,color:#fff;
     class DB banco;
