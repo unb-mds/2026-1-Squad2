@@ -1,6 +1,13 @@
 .env
 *.env
+.vscode/
 
 __pycache__/
 node_modules/
 .pytest_cache/
+
+skills-lock.json
+.agents
+.claude/skills/*
+.claude/!skills/grill-with-docs/*
+.claude/!skills/setup-matt-pocock-skills/*

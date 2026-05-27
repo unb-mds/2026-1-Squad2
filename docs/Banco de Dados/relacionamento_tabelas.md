@@ -1,6 +1,11 @@
+---
+hide:
+  - navigation
+  - toc
+---
 # Relações entre Tabelas - Banco de Dados Mapa L.I.L.A.S.
 
-Este documento apresenta uma visão detalhada das relações entre as tabelas do banco de dados do **Mapa L.I.L.A.S.**, detalhando a arquitetura relacional baseada nos modelos implementados em `backend/app/models.py`.
+Este documento apresenta uma visão detalhada das relações entre as tabelas do banco de dados do **Mapa L.I.L.A.S.**, mostra a arquitetura relacional baseada nos modelos implementados em `backend/app/models.py`.
 
 ---
 

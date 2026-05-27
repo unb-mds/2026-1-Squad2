@@ -119,3 +119,15 @@ body { font-family: 'DM Sans', sans-serif !important; background-color: var(--li
 ::-webkit-scrollbar-thumb { background: var(--lilas-accent-dim); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--lilas-accent); }
 ::selection { background-color: rgba(139,92,246,0.35); color: var(--lilas-text-primary); }
+
+/* Container do Mermaid permite rolagem */
+.mermaid {
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* Força o SVG a ter um tamanho mínimo para não esmagar as tabelas */
+.mermaid svg {
+    min-width: 1000px; /* Ajuste esse valor se quiser ainda maior */
+    height: auto;
+}
