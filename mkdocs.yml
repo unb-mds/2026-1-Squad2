@@ -34,6 +34,7 @@ nav:
   - Requisitos:
       - Visão geral: Requisitos/Visão de produto.md
       - Critérios de Aceitação: Requisitos/Criterios de aceitacao.md
+      - Wireframe: Requisitos/Wireframe.md
 
   - ATAS Reunião:
       - Reunião01: ATAS Reunião/Ata26_03.md
@@ -61,7 +62,7 @@ nav:
           - Estudo API Câmara/Senado: "Estudos/Sprint04/Estudo API da Câmara do Senado.md"
           - Pesquisa Legislativa: "Estudos/Sprint04/Pesquisa Legislativa - Monitoramento de PLs (API do Senado).md"
           - Story Map Figma: Estudos/Sprint04/StoryMap-figma.md
-          - Wireframe: Estudos/Sprint04/Wireframe.md
+          - Implementação de Dashboard: Estudos/Sprint04/Implementacao_Dashboard.md
 
   - Métricas de Produtividade:
       - Dashboard: scrum/index.html
