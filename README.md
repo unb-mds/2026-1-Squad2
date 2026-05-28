@@ -94,12 +94,6 @@ cd 2026-1-Mapa_L.I.L.A.S
 ### 2. Configuração de Variáveis de Ambiente (.env)
 Para que o banco de dados e a conexão entre o frontend e o backend funcionem corretamente, crie um arquivo chamado `.env` dentro da pasta `backend/`.
  
-**Banco de dados em nuvem:**
-```env
-DATABASE_URL=postgresql://neondb_owner:npg_8KuUFBC1QoMc@ep-wispy-art-ac23lgf8.sa-east-1.aws.neon.tech/neondb?sslmode=require
-CORS_ORIGINS=http://localhost:5173
-```
-
 ### 3. Como Iniciar o Container
 
 Com tudo configurado, execute o comando abaixo na raiz do projeto (onde está o arquivo `docker-compose.yml`) para baixar as dependências e subir toda a infraestrutura:
