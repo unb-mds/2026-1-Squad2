@@ -9,5 +9,4 @@ node_modules/
 skills-lock.json
 .agents
 .claude/skills/*
-.claude/!skills/grill-with-docs/*
-.claude/!skills/setup-matt-pocock-skills/*
+!.claude/skills/context-handoff.md
