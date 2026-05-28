@@ -93,6 +93,13 @@ cd 2026-1-Mapa_L.I.L.A.S
 
 ### 2. Configuração de Variáveis de Ambiente (.env)
 Para que o banco de dados e a conexão entre o frontend e o backend funcionem corretamente, crie um arquivo chamado `.env` dentro da pasta `backend/`.
+
+```env
+# Exemplo de configuração do banco de dados e permissão de requisições
+DATABASE_URL=postgresql://postgres:suasenha@db:5432/mapa_lilas
+CORS_ORIGINS=http://localhost:5173
+
+```
  
 ### 3. Como Iniciar o Container
 
