@@ -79,15 +79,31 @@ export async function fetchFiltros() {
   return response.json();
 }
 
-export async function fetchPLDetalhado(id) {
-  // Mock temporário até o backend ter o endpoint /api/projetos-de-lei/:id
+export async function fetchPLDetalhado(id, dadosCard = null) {
   const USE_MOCK_DETALHADO = true;
-  
+
   if (USE_MOCK_DETALHADO) {
     await new Promise((r) => setTimeout(r, 500));
     const pl = mockPLsDetalhados[id];
-    if (!pl) return Object.values(mockPLsDetalhados)[0];
-    return pl;
+
+    const todos = Object.values(mockPLsDetalhados);
+    const hash = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    const plBase = pl ? { ...pl } : { ...todos[hash % todos.length] };
+
+    // Extrai número e ano do ID real
+    const partes = id.split('-');
+    if (partes.length >= 3) {
+      plBase.numero = partes[1];
+      plBase.ano = Number(partes[2]);
+      plBase.id = id;
+    }
+
+    // Sobrescreve com dados reais do card (prioridade máxima)
+    if (dadosCard) {
+      Object.assign(plBase, dadosCard);
+    }
+
+    return plBase;
   }
 
   const response = await fetch(`${BASE_URL}/api/projetos-de-lei/${id}`);
