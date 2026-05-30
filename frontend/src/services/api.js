@@ -1,5 +1,5 @@
 import { mockProjetos, mockFiltros } from '../mocks/projetosLei';
-
+import { mockPLsDetalhados } from '../mocks/plDetalhado';
 // Mude para false quando o backend estiver pronto
 const USE_MOCK = false;
 const BASE_URL = 'http://localhost:8000';
@@ -76,5 +76,22 @@ export async function fetchFiltros() {
 
   const response = await fetch(`${BASE_URL}/api/projetos-de-lei/filtros`);
   if (!response.ok) throw new Error('Erro ao buscar filtros');
+  return response.json();
+}
+
+export async function fetchPLDetalhado(id) {
+  // Mock temporário até o backend ter o endpoint /api/projetos-de-lei/:id
+  const USE_MOCK_DETALHADO = true;
+  
+  if (USE_MOCK_DETALHADO) {
+    await new Promise((r) => setTimeout(r, 500));
+    const pl = mockPLsDetalhados[id];
+    if (!pl) return Object.values(mockPLsDetalhados)[0];
+    return pl;
+  }
+
+  const response = await fetch(`${BASE_URL}/api/projetos-de-lei/${id}`);
+  if (response.status === 404) throw new Error('not_found');
+  if (!response.ok) throw new Error('Erro ao buscar projeto de lei');
   return response.json();
 }
