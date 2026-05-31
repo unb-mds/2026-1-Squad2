@@ -11,3 +11,8 @@ skills-lock.json
 .claude/skills/*
 .claude/!skills/grill-with-docs/*
 .claude/!skills/setup-matt-pocock-skills/*
+
+# Arquivos locais dos agents (Antigravity/Claude)
+docs/agents/
+.claude/
+CLAUDE.md
