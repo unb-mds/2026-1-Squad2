@@ -68,6 +68,14 @@ Identificar falhas rapidamente é crucial quando dependemos de ecossistemas exte
 | **Sistemas Externos** | Quedas ou manutenção nos sites da Câmara ou do Senado. |
 | **Frontend Web** | Exceptions não tratadas em JS/React estourando no cliente, *Time to Interactive* (TTI). |
 
+### 2.3 Padronização e Escalabilidade com Docker
+
+Toda a arquitetura é empacotada e orquestrada utilizando **Docker** e **Docker Compose**, o que fortalece significativamente a operação do sistema:
+
+- **Isolamento de Recursos:** As instâncias do Backend (Python) e do Frontend (Node) rodam de forma hermética, sem conflitar com dependências do sistema operacional do host.
+- **Escalabilidade Horizontal:** Caso a plataforma atinja picos de tráfego (ex: ano eleitoral), os containers da API FastAPI podem ser rapidamente replicados atrás de um *Load Balancer* sem a necessidade de reconfigurar infraestrutura complexa.
+- **Reproduzibilidade:** A premissa de que o ambiente de Produção e Homologação utilizem as exatas mesmas imagens Docker do ambiente de Desenvolvimento elimina bugs de discrepância de sistemas.
+
 ---
 
 ## 3. Pontos de Extensão Futuros (Roadmap Arquitetural)

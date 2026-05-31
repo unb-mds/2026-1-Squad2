@@ -30,6 +30,12 @@ Esta seção aprofunda o nível de zoom da nossa arquitetura, detalhando como o 
 | **Responsabilidades** | Persistência de PLs, parlamentares, usuários, alertas e histórico de buscas |
 | **Porta padrão** | 5432 |
 
+### 2.4 Orquestração e Infraestrutura (Docker)
+| Propriedade | Valor |
+|---|---|
+| **Tecnologia** | Docker e Docker Compose |
+| **Responsabilidades** | Isolar o Frontend, Backend e Banco de Dados em ambientes containerizados independentes, mapeando portas e orquestrando o fluxo de subida do projeto via `docker-compose.yml`. |
+
 ---
 
 ## 2. Level 3 — Diagrama de Componentes

@@ -77,3 +77,4 @@ flowchart TD
 | **Banco de Dados** | PostgreSQL | 15+ | Confiabilidade, queries complexas, suporte a JSONB |
 | **APIs Externas** | Senado + Câmara | — | Dados legislativos federais oficiais |
 | **NLP/Classifier** | Python (regex + NLP) | — | Classificação automática de PLs por tema |
+| **Containerização** | Docker & Compose | — | Padronização e facilidade no deploy dos ambientes |
