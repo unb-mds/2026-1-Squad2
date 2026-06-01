@@ -64,5 +64,8 @@ nav:
           - Story Map Figma: Estudos/Sprint04/StoryMap-figma.md
           - Implementação de Dashboard: Estudos/Sprint04/Implementacao_Dashboard.md
 
+  - Release Notes:
+      - Release 01: "Release Notes/release_01.md"
+
   - Métricas de Produtividade:
       - Dashboard: scrum/index.html
