@@ -52,6 +52,7 @@ nav:
   - Banco de Dados:
       - Tabelas do Banco: Banco de Dados/tables.md
       - Relações do Banco: Banco de Dados/relacionamento_tabelas.md
+      - Gestão de Negócio e Coleta: Banco de Dados/gestao_negocio_db.md
 
   - ATAS Reunião:
       - Reunião01: ATAS Reunião/Ata26_03.md
