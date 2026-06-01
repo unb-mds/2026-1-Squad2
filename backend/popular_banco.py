@@ -9,11 +9,12 @@ def carga_inicial():
     print("Iniciando a carga histórica de dados...")
     db = SessionLocal()
     try:
-        # Troque 2023 pelo ano que o squad definiu como escopo
-        #total_camara = coletar_camara(db, ano_inicial=2000)
-        #print(f"Câmara finalizada! {total_camara} registros.")
+        #Troque 2023 pelo ano que o squad definiu como escopo
+        ano = 2000
+        total_camara = coletar_camara(db, ano_inicial=ano)
+        print(f"Câmara finalizada! {total_camara} registros.")
 
-        total_senado = coletar_senado(db, ano_inicial=2000)
+        total_senado = coletar_senado(db, ano_inicial=ano)
         print(f"Senado finalizado! {total_senado} registros.")
         
         print("Carga inicial concluída com sucesso!")

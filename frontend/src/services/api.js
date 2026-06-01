@@ -1,5 +1,5 @@
 import { mockProjetos, mockFiltros } from '../mocks/projetosLei';
-
+import { mockPLsDetalhados } from '../mocks/plDetalhado';
 // Mude para false quando o backend estiver pronto
 const USE_MOCK = false;
 const BASE_URL = 'http://localhost:8000';
@@ -76,5 +76,38 @@ export async function fetchFiltros() {
 
   const response = await fetch(`${BASE_URL}/api/projetos-de-lei/filtros`);
   if (!response.ok) throw new Error('Erro ao buscar filtros');
+  return response.json();
+}
+
+export async function fetchPLDetalhado(id, dadosCard = null) {
+  const USE_MOCK_DETALHADO = true;
+
+  if (USE_MOCK_DETALHADO) {
+    await new Promise((r) => setTimeout(r, 500));
+    const pl = mockPLsDetalhados[id];
+
+    const todos = Object.values(mockPLsDetalhados);
+    const hash = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    const plBase = pl ? { ...pl } : { ...todos[hash % todos.length] };
+
+    // Extrai número e ano do ID real
+    const partes = id.split('-');
+    if (partes.length >= 3) {
+      plBase.numero = partes[1];
+      plBase.ano = Number(partes[2]);
+      plBase.id = id;
+    }
+
+    // Sobrescreve com dados reais do card (prioridade máxima)
+    if (dadosCard) {
+      Object.assign(plBase, dadosCard);
+    }
+
+    return plBase;
+  }
+
+  const response = await fetch(`${BASE_URL}/api/projetos-de-lei/${id}`);
+  if (response.status === 404) throw new Error('not_found');
+  if (!response.ok) throw new Error('Erro ao buscar projeto de lei');
   return response.json();
 }

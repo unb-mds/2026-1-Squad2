@@ -2,6 +2,24 @@
 ---
 Buscador de projetos de lei sobre: feminicídio, violência doméstica e direitos da mulher.
 Plataforma para busca e acompanhamento de projetos de lei sobre feminicídio e visualização de gráficos sobre o assunto.
+ 
+---
+ 
+## 🎯 Objetivo
+ 
+O **Mapa L.I.L.A.S.** democratiza o acesso à informação legislativa sobre o combate ao feminicídio no Brasil. A plataforma transforma dados da Câmara dos Deputados e do Senado Federal em informações claras e acessíveis, permitindo que cidadãos, pesquisadores e organizações da sociedade civil acompanhem o avanço de políticas públicas voltadas à proteção da mulher.
+ 
+## 🔍 Escopo
+ 
+**O que a plataforma faz:**
+- Busca e listagem de Projetos de Lei relacionados ao feminicídio e violência doméstica
+- Visualização de dados legislativos em gráficos interativos
+- Detalhamento completo de cada projeto de lei e seu histórico de tramitação
+**O que está fora do escopo:**
+- A plataforma não permite criar, editar ou votar em projetos de lei
+- A plataforma não substitui os sistemas oficiais da Câmara e do Senado
+- A plataforma não cobre proposições fora do tema de feminicídio e direitos da mulher
+---
 
 ## Tecnologias
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white)
@@ -68,14 +86,13 @@ Para rodar este projeto localmente, você não precisa instalar o Node ou o Pyth
 Abra o terminal e baixe o código do projeto para a sua máquina:
 
 ```bash
-git clone [https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git)
+git clone https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S.git
 cd 2026-1-Mapa_L.I.L.A.S
 
 ```
 
 ### 2. Configuração de Variáveis de Ambiente (.env)
-
-Para que o banco de dados e a conexão entre o frontend e o backend funcionem corretamente, crie um arquivo chamado `.env` dentro da pasta `backend/` com as seguintes configurações básicas:
+Para que o banco de dados e a conexão entre o frontend e o backend funcionem corretamente, crie um arquivo chamado `.env` dentro da pasta `backend/`.
 
 ```env
 # Exemplo de configuração do banco de dados e permissão de requisições
@@ -83,7 +100,7 @@ DATABASE_URL=postgresql://postgres:suasenha@db:5432/mapa_lilas
 CORS_ORIGINS=http://localhost:5173
 
 ```
-
+ 
 ### 3. Como Iniciar o Container
 
 Com tudo configurado, execute o comando abaixo na raiz do projeto (onde está o arquivo `docker-compose.yml`) para baixar as dependências e subir toda a infraestrutura:
@@ -113,7 +130,3 @@ Quando os containers estiverem rodando e o terminal indicar que os serviços ini
 * [@Luana Barbosa]()
 * [@Rafael Schetinger]()
 * [@Renan Santos]()
-
-```
-
-```

@@ -2,14 +2,14 @@ name: Atualiza Métricas SCRUM
 
 on:
   schedule:
-    - cron: '0 2 * * 0'   # Toda domingo às 02:00 UTC
+    - cron: '0 3 * * 0'   # Todo domingo às 03:00 UTC
   workflow_dispatch:        # Permite execução manual pela UI do GitHub
 
 permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  build-and-commit:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,18 +27,15 @@ jobs:
       - name: Executar analyzer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # GITHUB_REPOSITORY já é injetado automaticamente pelo Actions
         run: python metrics/analyzer.py
 
-      - name: Salvar métricas na pasta docs
-        run: |
-          mkdir -p docs/scrum
-          cp -r metrics/output/* docs/scrum/
-          
-      - name: Commit e Push das métricas atualizadas
+      - name: Garantir estrutura de pastas
+        run: mkdir -p docs/scrum
+
+      - name: Commit e push das métricas atualizadas
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/scrum/
-          git commit -m "chore: atualiza métricas scrum [skip ci]" || echo "Sem mudanças para commitar"
+          git add docs/scrum/metrics.json
+          git diff --staged --quiet || git commit -m "chore: atualiza métricas scrum [skip ci]"
           git push

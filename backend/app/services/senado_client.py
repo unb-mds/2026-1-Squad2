@@ -17,13 +17,12 @@ PALAVRAS_CHAVE = [
     "direitos da mulher",
 ]
 
-CODIGOS_ASSUNTO = [130, 143]
-SIGLAS_TIPO = ["PL", "PLP"]
+# Adicionado PLS como você pediu
+SIGLAS_TIPO = ["PL", "PLP", "PLS"]
 
-# Dicionário de Cache em memória para não repetir requisições
 _cache_senadores = {}
 
-def _get(path: str, params: Optional[dict] = None) -> Optional[dict[str, Any]]:
+def _get(path: str, params: Optional[dict] = None) -> Any:
     url = f"{BASE_URL}/{path.lstrip('/')}"
     headers = {"Accept": "application/json"}
     try:
@@ -36,22 +35,41 @@ def _get(path: str, params: Optional[dict] = None) -> Optional[dict[str, Any]]:
 
 def pesquisar_materias(
     keyword: str,
-    codigo_assunto: int,
     sigla_tipo: str,
     ano_inicial: Optional[int] = None,
     numdias: Optional[int] = None,
-) -> dict[str, Any]:
+) -> list[dict[str, Any]]:
+    
+    # Usando exatamente os parâmetros da sua URL de sucesso
     params: dict[str, Any] = {
-        "termo": keyword,
-        "codAssuntoEspecifico": codigo_assunto,
         "sigla": sigla_tipo,
+        "termo": keyword,
+        "v": 1
     }
+    
     if ano_inicial:
-        params["anoMateria"] = ano_inicial
+        params["dataInicioApresentacao"] = f"{ano_inicial}-01-01"
+        
     if numdias:
         params["numdias"] = numdias
 
-    return _get("/processo", params) or {}
+    raw_response = _get("/processo", params)
+    
+    if not raw_response:
+        return []
+
+    # O SEGREDO: com v=1, a API retorna uma LISTA direta, e não um DICIONÁRIO.
+    if isinstance(raw_response, list):
+        return raw_response
+        
+    # Fallback de segurança (caso a API mude de ideia e mande um dict)
+    if isinstance(raw_response, dict):
+        processos = raw_response.get("Processos", raw_response.get("ListaProcessos", []))
+        if isinstance(processos, dict):
+            return [processos]
+        return processos
+
+    return []
 
 def buscar_detalhe(cod_materia: int) -> Optional[dict[str, Any]]:
     return _get(f"/processo/{cod_materia}")
@@ -60,7 +78,6 @@ def buscar_movimentacoes(cod_materia: int) -> Optional[dict[str, Any]]:
     return _get(f"/processo/{cod_materia}/movimentacoes")
 
 def buscar_senador(cod_parlamentar: int) -> Optional[dict[str, Any]]:
-    """Busca detalhes de um senador, usando cache em memória."""
     cod_str = str(cod_parlamentar)
     if cod_str in _cache_senadores:
         return _cache_senadores[cod_str]

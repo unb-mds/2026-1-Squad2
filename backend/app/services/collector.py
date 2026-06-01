@@ -40,13 +40,28 @@ def coletar_camara(session: Session, ano_inicial: Optional[int] = None) -> int:
                 if not pl_id:
                     continue
 
+                # 1. Busca os autores PRIMEIRO para verificar a origem do PL
+                autores_raw = camara_client.buscar_autores(pl_id)
+                
+                # 2. Verifica se algum autor possui a tag do Senado
+                ignorar_pl = False
+                for autor in autores_raw:
+                    nome_autor = autor.get("nome", "")
+                    if "Senado Federal -" in nome_autor:
+                        ignorar_pl = True
+                        break
+                
+                # 3. Se for do Senado, ignora completamente a inserção na tabela da Câmara
+                if ignorar_pl:
+                    logger.info("Câmara — ignorando PL %s (Origem: Senado)", pl_id)
+                    continue
+
+                # 4. Se passou pelo filtro, segue a coleta normal
                 detalhe_raw = camara_client.buscar_detalhe(pl_id)
                 id_salvo = upsert_pl_camara(session, item_raw, detalhe_raw, item_raw)
                 if not id_salvo:
                     continue
 
-                autores_raw = camara_client.buscar_autores(pl_id)
-                
                 # ENRIQUECIMENTO DE CACHE: Deputados
                 for autor in autores_raw:
                     uri = autor.get("uri")
@@ -79,56 +94,39 @@ def coletar_senado(
     total = 0
     for sigla in senado_client.SIGLAS_TIPO:
         for kw in senado_client.PALAVRAS_CHAVE:
-            for cod_assunto in senado_client.CODIGOS_ASSUNTO:
-                logger.info(
-                    "Senado — coletando %s | keyword='%s' | assunto=%d",
-                    sigla, kw, cod_assunto,
-                )
-                raw = senado_client.pesquisar_materias(
-                    keyword=kw,
-                    codigo_assunto=cod_assunto,
-                    sigla_tipo=sigla,
-                    ano_inicial=ano_inicial,
-                    numdias=numdias,
-                )
-                if isinstance(raw, list):
-                    materias_raw = raw
-                elif isinstance(raw, dict):
-                    materias_raw = raw.get("Processos", raw.get("ListaProcessos", [raw]))
-                else:
-                    materias_raw = []
+            logger.info("Senado — coletando %s | keyword='%s'", sigla, kw)
+            
+            materias_raw = senado_client.pesquisar_materias(
+                keyword=kw,
+                sigla_tipo=sigla,
+                ano_inicial=ano_inicial,
+                numdias=numdias,
+            )
+
+            for item_raw in (materias_raw or []):
                 
-                if isinstance(materias_raw, dict):
-                    materias_raw = [materias_raw]
+                # 1. Filtro Anti-Duplicação: Verifica se o PL veio da Câmara
+                autoria_pl = item_raw.get("autoria", "")
+                if "Câmara dos Deputados" in autoria_pl:
+                    logger.info("Senado — ignorando %s (Origem: Câmara)", item_raw.get("identificacao"))
+                    continue
 
-                for item_raw in (materias_raw or []):
-                    id_salvo = upsert_pl_senado(session, item_raw, item_raw)
-                    if not id_salvo:
-                        continue
+                # 2. Se passou pelo filtro, segue a coleta normal
+                id_salvo = upsert_pl_senado(session, item_raw, item_raw)
+                if not id_salvo:
+                    continue
 
-                    detalhe_raw = senado_client.buscar_detalhe(id_salvo)
-                    
-                    if detalhe_raw:
-                        # ENRIQUECIMENTO DE CACHE: Senadores
-                        autores = detalhe_raw.get("autoriaIniciativa", []) or detalhe_raw.get("documento", {}).get("autoria", [])
-                        if isinstance(autores, dict): autores = [autores]
-                        
-                        for autor in autores:
-                            cod = autor.get("codigoParlamentar") or autor.get("CodigoParlamentar")
-                            if cod:
-                                detalhes = senado_client.buscar_senador(cod)
-                                if detalhes:
-                                    autor["detalhes_senador"] = detalhes
+                detalhe_raw = senado_client.buscar_detalhe(id_salvo)
+                
+                if detalhe_raw:
+                    upsert_autores_senado(session, id_salvo, detalhe_raw)
+                    upsert_tramitacoes_senado(session, id_salvo, detalhe_raw)
 
-                        upsert_autores_senado(session, id_salvo, detalhe_raw)
-                        upsert_tramitacoes_senado(session, id_salvo, detalhe_raw)
-
-                    session.commit()
-                    total += 1
+                session.commit()
+                total += 1
 
     logger.info("Senado — ciclo concluído. %d registros processados.", total)
     return total
-
 # ---------------------------------------------------------------------------
 # Coleta incremental e Agendador
 # ---------------------------------------------------------------------------

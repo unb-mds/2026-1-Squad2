@@ -1,8 +1,8 @@
 """criando_tabelas_iniciais
 
-Revision ID: dea7511548f5
+Revision ID: baf79178346c
 Revises: 
-Create Date: 2026-05-16 13:45:37.705846
+Create Date: 2026-05-24 22:04:13.997220
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects import postgresql
 
-revision: str = 'dea7511548f5'
+revision: str = 'baf79178346c'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
