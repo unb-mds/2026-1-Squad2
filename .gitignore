@@ -9,4 +9,10 @@ node_modules/
 skills-lock.json
 .agents
 .claude/skills/*
-!.claude/skills/context-handoff.md
+.claude/!skills/grill-with-docs/*
+.claude/!skills/setup-matt-pocock-skills/*
+
+# Arquivos locais dos agents (Antigravity/Claude)
+docs/agents/
+.claude/
+CLAUDE.md

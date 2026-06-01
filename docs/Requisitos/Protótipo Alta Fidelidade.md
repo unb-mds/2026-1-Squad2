@@ -51,7 +51,7 @@ Navegue pelas abas abaixo para conferir o visual planejado (cores, tipografia, e
     
     *Página de detalhamento de um Projeto de Lei com autoria, tramitação, ementa e download.*
 
-=== "🏆 Ranking de Parlamentares"
+<!-- === "🏆 Ranking de Parlamentares"
     ![Ranking de Parlamentares](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/RANKING%20PARLAMENTARES.png)
     
     *Ranking dinâmico dos parlamentares mais ativos nas proposições da casa legislativa.*
@@ -59,4 +59,4 @@ Navegue pelas abas abaixo para conferir o visual planejado (cores, tipografia, e
 === "👤 Perfil Parlamentar"
     ![Perfil Parlamentar](https://github.com/unb-mds/2026-1-Mapa_L.I.L.A.S/raw/86fe51edd87758232ec59d59f4aeb8962e43c235/docs/Requisitos/imagens/PARLAMENTARES%20DETALHADO.png)
     
-    *Perfil detalhado mostrando o engajamento e histórico das proposições de um parlamentar.*
+    *Perfil detalhado mostrando o engajamento e histórico das proposições de um parlamentar.* -->

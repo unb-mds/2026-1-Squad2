@@ -37,6 +37,7 @@ nav:
   - Arquitetura:
       - Visão Geral: Arquitetura/Visao_Geral.md
       - Modelagem C4: Arquitetura/C4_Model.md
+      - Docker: Arquitetura/Docker.md
       - Decisões (ADRs): Arquitetura/ADRs.md
       - Qualidade e Operação: Arquitetura/Seguranca_Escalabilidade.md
 
